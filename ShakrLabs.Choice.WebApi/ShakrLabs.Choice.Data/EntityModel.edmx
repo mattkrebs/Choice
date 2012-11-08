@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ChoiceModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="ChoiceModelStoreContainer">
+          <EntitySet Name="Category" EntityType="ChoiceModel.Store.Category" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Poll" EntityType="ChoiceModel.Store.Poll" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="PollItem" EntityType="ChoiceModel.Store.PollItem" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <AssociationSet Name="FK_Poll_Category" Association="ChoiceModel.Store.FK_Poll_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Poll" EntitySet="Poll" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PollItem_Poll" Association="ChoiceModel.Store.FK_PollItem_Poll">
+            <End Role="Poll" EntitySet="Poll" />
+            <End Role="PollItem" EntitySet="PollItem" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="SubCategoryId" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Poll">
+          <Key>
+            <PropertyRef Name="PollId" />
+          </Key>
+          <Property Name="PollId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PollItem">
+          <Key>
+            <PropertyRef Name="PollItemId" />
+          </Key>
+          <Property Name="PollItemId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ImageUrl" Type="varchar(max)" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="PollId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Poll_Category">
+          <End Role="Category" Type="ChoiceModel.Store.Category" Multiplicity="1" />
+          <End Role="Poll" Type="ChoiceModel.Store.Poll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Poll">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PollItem_Poll">
+          <End Role="Poll" Type="ChoiceModel.Store.Poll" Multiplicity="1" />
+          <End Role="PollItem" Type="ChoiceModel.Store.PollItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Poll">
+              <PropertyRef Name="PollId" />
+            </Principal>
+            <Dependent Role="PollItem">
+              <PropertyRef Name="PollId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ChoiceModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="ChoiceTestEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="ChoiceModel.Category" />
+          <EntitySet Name="Polls" EntityType="ChoiceModel.Poll" />
+          <EntitySet Name="PollItems" EntityType="ChoiceModel.PollItem" />
+          <AssociationSet Name="FK_Poll_Category" Association="ChoiceModel.FK_Poll_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Poll" EntitySet="Polls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PollItem_Poll" Association="ChoiceModel.FK_PollItem_Poll">
+            <End Role="Poll" EntitySet="Polls" />
+            <End Role="PollItem" EntitySet="PollItems" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="SubCategoryId" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Polls" Relationship="ChoiceModel.FK_Poll_Category" FromRole="Category" ToRole="Poll" />
+        </EntityType>
+        <EntityType Name="Poll">
+          <Key>
+            <PropertyRef Name="PollId" />
+          </Key>
+          <Property Name="PollId" Type="Guid" Nullable="false" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="ChoiceModel.FK_Poll_Category" FromRole="Poll" ToRole="Category" />
+          <NavigationProperty Name="PollItems" Relationship="ChoiceModel.FK_PollItem_Poll" FromRole="Poll" ToRole="PollItem" />
+        </EntityType>
+        <EntityType Name="PollItem">
+          <Key>
+            <PropertyRef Name="PollItemId" />
+          </Key>
+          <Property Name="PollItemId" Type="Guid" Nullable="false" />
+          <Property Name="ImageUrl" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="PollId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Poll" Relationship="ChoiceModel.FK_PollItem_Poll" FromRole="PollItem" ToRole="Poll" />
+        </EntityType>
+        <Association Name="FK_Poll_Category">
+          <End Role="Category" Type="ChoiceModel.Category" Multiplicity="1" />
+          <End Role="Poll" Type="ChoiceModel.Poll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Poll">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PollItem_Poll">
+          <End Role="Poll" Type="ChoiceModel.Poll" Multiplicity="1" />
+          <End Role="PollItem" Type="ChoiceModel.PollItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Poll">
+              <PropertyRef Name="PollId" />
+            </Principal>
+            <Dependent Role="PollItem">
+              <PropertyRef Name="PollId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ChoiceModelStoreContainer" CdmEntityContainer="ChoiceTestEntities">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="ChoiceModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="SubCategoryId" ColumnName="SubCategoryId" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Polls">
+            <EntityTypeMapping TypeName="ChoiceModel.Poll">
+              <MappingFragment StoreEntitySet="Poll">
+                <ScalarProperty Name="PollId" ColumnName="PollId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PollItems">
+            <EntityTypeMapping TypeName="ChoiceModel.PollItem">
+              <MappingFragment StoreEntitySet="PollItem">
+                <ScalarProperty Name="PollItemId" ColumnName="PollItemId" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="PollId" ColumnName="PollId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams />
+  </Designer>
+</edmx:Edmx>

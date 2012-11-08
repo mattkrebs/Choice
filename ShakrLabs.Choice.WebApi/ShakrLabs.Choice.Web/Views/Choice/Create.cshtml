@@ -1,0 +1,70 @@
+﻿@model ShakrLabs.Choice.Web.Models.ChoiceModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm("Create", "Choice", FormMethod.Post, new { enctype="multipart/form-data"}))
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>ChoiceModel</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Category)
+        </div>
+        <div class="editor-field">
+            <select id="Category" name="Category">
+                <option value="1">LOLCats</option>
+                <option value="2">Sports</option>
+                <option value="3">Misc</option>
+            </select>
+        </div>
+        <div class="editor-label">
+            <label for="file1">Filename:</label>
+        </div>
+        <div class="editor-field">
+             <input type="file" name="files" id="file1" />
+        </div>
+        <p>OR</p>
+         <div class="editor-label">
+            <label for="url1">URL:</label>
+        </div>
+        <div class="editor-field">
+             <input type="text" name="urls" id="url1" />
+        </div>
+
+        <div class="editor-label">
+           <label for="file2">Filename:</label>
+        </div>
+        <div class="editor-field">
+          <input type="file" name="files" id="file2" />
+        </div>
+        <p>OR</p>       
+        <div class="editor-label">
+           <label for="url1">Url:</label>
+        </div>
+        <div class="editor-field">
+          <input type="text" name="urls" id="url2" />
+        </div>
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<script type="text/javascript">
+    $("#file1").change(function () {
+        alert("File One Selected");
+    });
+
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
