@@ -27,6 +27,7 @@ namespace ShakrLabs.Choice.Web.Controllers
             return repository.Get();
         }
 
+
         // GET api/poll/5
         public PollResponseModel Get(string id)
         {
