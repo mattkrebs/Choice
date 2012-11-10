@@ -1,0 +1,69 @@
+﻿@model IEnumerable<ShakrLabs.Choice.Data.Poll>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Category.CategoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.FacebookId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Abused)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AbusedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sponsored)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category.CategoryName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.FacebookId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Abused)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AbusedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sponsored)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PollId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PollId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PollId })
+        </td>
+    </tr>
+}
+
+</table>

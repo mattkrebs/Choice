@@ -1,0 +1,67 @@
+﻿@model ShakrLabs.Choice.Data.Poll
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Poll</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Category.CategoryName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Category.CategoryName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.User.FacebookId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.User.FacebookId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CreatedDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreatedDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Active)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Active)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Abused)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Abused)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.AbusedDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AbusedDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Sponsored)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Sponsored)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
