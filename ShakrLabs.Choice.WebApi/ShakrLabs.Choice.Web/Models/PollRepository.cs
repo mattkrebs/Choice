@@ -11,7 +11,7 @@ namespace ShakrLabs.Choice.Web.Models
     public class PollRepository : IPollRepository
     {
 
-        private ChoiceTestEntities db = new ChoiceTestEntities();
+        private ChoiceAppEntities db = new ChoiceAppEntities();
 
        
 

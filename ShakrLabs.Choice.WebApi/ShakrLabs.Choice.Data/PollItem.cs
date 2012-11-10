@@ -14,13 +14,18 @@ namespace ShakrLabs.Choice.Data
     
     public partial class PollItem
     {
+        public PollItem()
+        {
+            this.Ratings = new HashSet<Rating>();
+        }
+    
         public System.Guid PollItemId { get; set; }
         public string ImageUrl { get; set; }
-        public int UserId { get; set; }
         public System.DateTime CreatedDate { get; set; }
-        public bool Active { get; set; }
-        public System.Guid PollId { get; set; }
+        public Nullable<bool> Active { get; set; }
+        public Nullable<System.Guid> PollId { get; set; }
     
         public virtual Poll Poll { get; set; }
+        public virtual ICollection<Rating> Ratings { get; set; }
     }
 }

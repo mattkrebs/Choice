@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4637a08c70b64e6e8ca6ba9ef531ccce" Name="Diagram1">
+        <EntityTypeShape EntityType="ChoiceModel.Category" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ChoiceModel.Poll" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ChoiceModel.PollItem" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ChoiceModel.Rating" Width="1.5" PointX="7.5" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ChoiceModel.User" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <AssociationConnector Association="ChoiceModel.FK_Poll_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="ChoiceModel.FK_Poll_User" ManuallyRouted="false" />
+        <AssociationConnector Association="ChoiceModel.FK_PollItem_Poll" ManuallyRouted="false" />
+        <AssociationConnector Association="ChoiceModel.FK_Rating_PollItem" ManuallyRouted="false" />
+        <AssociationConnector Association="ChoiceModel.FK_Rating_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

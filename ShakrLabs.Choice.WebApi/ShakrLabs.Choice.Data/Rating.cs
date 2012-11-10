@@ -12,18 +12,16 @@ namespace ShakrLabs.Choice.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class Category
+    public partial class Rating
     {
-        public Category()
-        {
-            this.Polls = new HashSet<Poll>();
-        }
+        public System.Guid RatingId { get; set; }
+        public System.Guid PollItemId { get; set; }
+        public System.Guid UserId { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<double> Lat { get; set; }
+        public Nullable<double> Lng { get; set; }
     
-        public byte CategoryId { get; set; }
-        public string CategoryName { get; set; }
-        public Nullable<int> SubCategoryId { get; set; }
-        public bool Active { get; set; }
-    
-        public virtual ICollection<Poll> Polls { get; set; }
+        public virtual PollItem PollItem { get; set; }
+        public virtual User User { get; set; }
     }
 }

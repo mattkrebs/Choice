@@ -20,12 +20,16 @@ namespace ShakrLabs.Choice.Data
         }
     
         public System.Guid PollId { get; set; }
-        public int CategoryId { get; set; }
-        public int UserId { get; set; }
+        public byte CategoryId { get; set; }
+        public System.Guid UserId { get; set; }
         public System.DateTime CreatedDate { get; set; }
-        public bool Active { get; set; }
+        public Nullable<bool> Active { get; set; }
+        public Nullable<bool> Abused { get; set; }
+        public Nullable<System.DateTime> AbusedDate { get; set; }
+        public Nullable<bool> Sponsored { get; set; }
     
         public virtual Category Category { get; set; }
+        public virtual User User { get; set; }
         public virtual ICollection<PollItem> PollItems { get; set; }
     }
 }

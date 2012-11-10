@@ -9,10 +9,10 @@ namespace ShakrLabs.Choice.Web.Models
     public class PollResponseModel
     {
 
-        public int Category { get; set; }
+        public byte Category { get; set; }
         public IEnumerable<PollItemResponseModel> Urls { get; set; }
         public Guid PollID { get; set; }
-        public int MemberId { get; set; }
+        public Guid MemberId { get; set; }
 
 
         public PollResponseModel(Poll poll)

@@ -12,18 +12,20 @@ namespace ShakrLabs.Choice.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class Category
+    public partial class User
     {
-        public Category()
+        public User()
         {
             this.Polls = new HashSet<Poll>();
+            this.Ratings = new HashSet<Rating>();
         }
     
-        public byte CategoryId { get; set; }
-        public string CategoryName { get; set; }
-        public Nullable<int> SubCategoryId { get; set; }
-        public bool Active { get; set; }
+        public System.Guid UserId { get; set; }
+        public string FacebookId { get; set; }
+        public System.DateTime CreatedDate { get; set; }
+        public Nullable<bool> Active { get; set; }
     
         public virtual ICollection<Poll> Polls { get; set; }
+        public virtual ICollection<Rating> Ratings { get; set; }
     }
 }

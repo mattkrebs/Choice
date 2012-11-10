@@ -16,7 +16,7 @@ namespace ShakrLabs.Choice.Web.Controllers
         //
         // GET: /Choice/
 
-        private ChoiceTestEntities db = new ChoiceTestEntities();
+        private ChoiceAppEntities db = new ChoiceAppEntities();
 
 
         public ActionResult Index()
@@ -64,7 +64,7 @@ namespace ShakrLabs.Choice.Web.Controllers
                 Active = true,
                 CategoryId = model.Category,
                 CreatedDate = DateTime.Now,
-                UserId = 1
+                UserId = Guid.NewGuid()
             };
             foreach (var file in model.Files)
             {
@@ -81,8 +81,7 @@ namespace ShakrLabs.Choice.Web.Controllers
                         PollItemId = Guid.NewGuid(),
                         Active = true,
                         CreatedDate = DateTime.Now,
-                        ImageUrl = blob.Uri.OriginalString,
-                        UserId = 1
+                        ImageUrl = blob.Uri.OriginalString
                     });
 
                    

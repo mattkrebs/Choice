@@ -13,10 +13,10 @@ namespace ShakrLabs.Choice.Data
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ChoiceTestEntities : DbContext
+    public partial class ChoiceAppEntities : DbContext
     {
-        public ChoiceTestEntities()
-            : base("name=ChoiceTestEntities")
+        public ChoiceAppEntities()
+            : base("name=ChoiceAppEntities")
         {
         }
     
@@ -28,5 +28,7 @@ namespace ShakrLabs.Choice.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Poll> Polls { get; set; }
         public DbSet<PollItem> PollItems { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

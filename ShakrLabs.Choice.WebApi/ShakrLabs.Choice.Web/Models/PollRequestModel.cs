@@ -11,7 +11,7 @@ namespace ShakrLabs.Choice.Web.Models
 
         
         public IEnumerable<HttpPostedFileBase> Files { get; set; }
-        public int Category { get; set; }
+        public byte Category { get; set; }
         public Guid PollID { get; set; }
         public int MemberId { get; set; }
 
