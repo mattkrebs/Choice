@@ -13,6 +13,64 @@ namespace ShakrLabs.Choice.Web.Controllers
     {
         private ChoiceAppEntities db = new ChoiceAppEntities();
 
+
+        //[HttpPost]
+        //public ActionResult Create(PollRequestModel model)
+        //{
+        //    CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
+        //       CloudConfigurationManager.GetSetting("StorageConnectionString"));
+
+        //    // Create the blob client     
+        //    CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+
+        //    // Retrieve a reference to a container 
+        //    CloudBlobContainer container = blobClient.GetContainerReference("images");
+
+        //    // Create the container if it doesn't already exist
+        //    container.CreateIfNotExist();
+        //    Poll poll = new Poll()
+        //    {
+        //        PollId = Guid.NewGuid(),
+        //        Active = true,
+        //        CategoryId = model.Category,
+        //        CreatedDate = DateTime.Now,
+        //        UserId = 1
+        //    };
+        //    foreach (var file in model.Files)
+        //    {
+        //        try
+        //        {
+        //            var stream = file.InputStream;
+
+
+        //            CloudBlob blob = container.GetBlobReference(file.FileName);
+        //            blob.UploadFromStream(stream);
+        //            //Create Poll
+
+        //            poll.PollItems.Add(new PollItem()
+        //            {
+        //                PollItemId = Guid.NewGuid(),
+        //                Active = true,
+        //                CreatedDate = DateTime.Now,
+        //                ImageUrl = blob.Uri.OriginalString,
+        //                UserId = 1
+        //            });
+
+
+
+        //            //blob.UploadFile(file);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            return Json(new { success = false, message = ex.Message }, "application/json");
+        //        }
+        //    }
+        //    db.Polls.Add(poll);
+        //    db.SaveChanges();
+        //    return Json(new { success = true }, "text/html");
+
+
+        //}
         //
         // GET: /WebPoll/
 
