@@ -13,7 +13,7 @@ namespace ShakrLabs.Choice.Web.Models
         public string ImageUrl2 { get; set; }
         public HttpPostedFileBase File1 { get; set; }
         public HttpPostedFileBase File2 { get; set; }
-        public int CategoryId { get; set; }
+        public byte CategoryId { get; set; }
         public Guid MemberId { get; set; }
 
     }

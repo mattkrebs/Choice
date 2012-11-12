@@ -1,0 +1,65 @@
+﻿@model ShakrLabs.Choice.Web.Models.ChoiceViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+@using (Html.BeginForm("Create", "Admin", FormMethod.Post, new { enctype="multipart/form-data"}))
+{
+    @Html.ValidationSummary(true)
+     @Html.HiddenFor(model => model.MemberId)
+    @Html.HiddenFor(model => model.PollId)
+    <fieldset>
+        <legend>ChoiceModel</legend>
+
+        <div class="editor-label">
+            Category
+        </div>
+        <div class="editor-field">
+            <select id="CategoryId" name="CategoryId">
+                <option value="1">LOLCats</option>
+                <option value="2">Sports</option>
+                <option value="3">Misc</option>
+            </select>
+        </div>
+        <div class="editor-label">
+            <label for="file1">Filename:</label>
+        </div>
+        <div class="editor-field">
+             <input type="file" name="file1" id="file1" />
+        </div>
+        <p>OR</p>
+         <div class="editor-label">
+            <label for="url1">URL:</label>
+        </div>
+        <div class="editor-field">
+              @Html.EditorFor(model => model.ImageUrl1)
+        </div>
+
+        <div class="editor-label">
+           <label for="file2">Filename:</label>
+        </div>
+        <div class="editor-field">
+          <input type="file" name="file2" id="file2" />
+        </div>
+        <p>OR</p>       
+        <div class="editor-label">
+           <label for="url1">Url:</label>
+        </div>
+        <div class="editor-field">
+         @Html.EditorFor(model => model.ImageUrl2)
+        </div>
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

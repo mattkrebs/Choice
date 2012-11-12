@@ -45,12 +45,12 @@ namespace ShakrLabs.Choice.Web.Controllers
             try
             {
                 // TODO: Add insert logic here
-
+                _repository.Add(model);
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception e)
             {
-                return View(_repository.Add(model));
+                return View();
             }
         }
 
