@@ -8,6 +8,19 @@ namespace ShakrLabs.Choice.Web
         // For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkId=254725
         public static void RegisterBundles(BundleCollection bundles)
         {
+
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+                       "~/Scripts/bootstrap-transition.js",
+                       "~/Scripts/bootstrap-alert.js",
+                       "~/Scripts/bootstrap-modal.js",
+                       "~/Scripts/bootstrap-dropdown.js",
+                       "~/Scripts/bootstrap-scrollspy.js",
+                       "~/Scripts/bootstrap-tab.js",
+                       "~/Scripts/bootstrap-tooltip.js",
+                       "~/Scripts/bootstrap-popover.js",
+                       "~/Scripts/bootstrap-collapse.js",
+                       "~/Scripts/bootstrap-carousel.js",
+                       "~/Scripts/bootstrap-typeahead.js"));
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -23,8 +36,7 @@ namespace ShakrLabs.Choice.Web
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css",
-                "~/Content/fileuploader.css"));
+            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css", "~/Content/bootstrap.css", "~/Content/bootstrap-responsive.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",
