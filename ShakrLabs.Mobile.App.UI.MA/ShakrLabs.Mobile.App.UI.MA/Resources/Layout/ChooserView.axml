@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:minWidth="25px"
+    android:minHeight="25px">
+    <ViewFlipper
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/viewFlipper1">
+        <fragment
+            class="shakrlabs.mobile.app.ui.ma.PollFragment"
+            android:id="@+id/poll_fragment"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+        <fragment
+            class="shakrlabs.mobile.app.ui.ma.PollFragment"
+            android:id="@+id/poll_fragment2"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+    </ViewFlipper>
+</LinearLayout>
