@@ -28,13 +28,15 @@ namespace ShakrLabs.Mobile.App.UI.MA
         bool image2loaded = false;
         private PollRunnable pollRunnable;
         public ChoiceViewModel CurrentPoll { get; set; }
+        public bool Selected = false;
+
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             View v = inflater.Inflate(Resource.Layout.ChoiceFragment, null);
             image1 = v.FindViewById<ImageView>(Resource.Id.imgChoice1);
             var animation = (AnimationDrawable)image1.Drawable;
             animation.Start();
-
+            
             image1.Touch += image1_Touch;
             image2 = v.FindViewById<ImageView>(Resource.Id.imgChoice2);
             txtScore1 = v.FindViewById<TextView>(Resource.Id.txtScore1);
@@ -55,8 +57,9 @@ namespace ShakrLabs.Mobile.App.UI.MA
 
         void image1_Touch(object sender, View.TouchEventArgs e)
         {
-            if (e.Event.Action == MotionEventActions.Up)
+            if (e.Event.Action == MotionEventActions.Up && Selected == false)
             {
+                Selected = true;
                 Handler handler = new Handler();
                 txtScore1.Visibility = ViewStates.Visible;
                 // Toast.MakeText(this.Activity, "Clicked on image :" + CurrentPoll.PollItems[0].ImageUrl, ToastLength.Short).Show();
@@ -65,9 +68,9 @@ namespace ShakrLabs.Mobile.App.UI.MA
         }
         void image2_Touch(object sender, View.TouchEventArgs e)
         {
-            if (e.Event.Action == MotionEventActions.Up)
+            if (e.Event.Action == MotionEventActions.Up && Selected == false)
             {
-
+                Selected = true;
                 Handler handler = new Handler();
                 txtScore2.Visibility = ViewStates.Visible;
 
@@ -88,7 +91,8 @@ namespace ShakrLabs.Mobile.App.UI.MA
             {
                 item.txtScore1.Visibility = ViewStates.Gone;
                 item.txtScore2.Visibility = ViewStates.Gone;
-                ((PollActivity)this.item.Activity).Flip();
+                item.Selected = false;
+                ((ChoiceActivity)this.item.Activity).Flip();
             }
         }
         public void SetPoll(ChoiceViewModel poll)

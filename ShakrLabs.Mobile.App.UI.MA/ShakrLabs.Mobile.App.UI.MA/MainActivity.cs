@@ -17,11 +17,12 @@ using Com.Facebook.Android;
 using Object = Java.Lang.Object;
 using Android.Content.PM;
 using Java.Security;
+using ShakrLabs.Mobile.App.Shared.Presenter;
 
 namespace ShakrLabs.Mobile.App.UI.MA
 {
     [Activity(Label = "Choice", MainLauncher = true, Icon = "@drawable/icon")]
-    public class MainActivity : Activity
+    public class MainActivity : BaseActivity
     {
 
         // Your Facebook Application ID must be set before running this example
@@ -68,7 +69,7 @@ namespace ShakrLabs.Mobile.App.UI.MA
             btnChoosin = (Button)FindViewById(Resource.Id.btnChoosin);
             btnChoosin.Click += (sender, e) =>
             {
-                StartActivity(typeof(PollActivity));
+                StartActivity(typeof(ChoiceActivity));
             };
            // mText = (TextView)FindViewById(Resource.Id.txt);
           //  mRequestButton = (Button)FindViewById(Resource.Id.requestButton);
@@ -141,7 +142,21 @@ namespace ShakrLabs.Mobile.App.UI.MA
             //    ViewStates.Visible :
             //    ViewStates.Invisible;
         }
-
+        public void GetUser()
+        {
+            mAsyncRunner.Request("me", new SampleRequestListener(this));
+        }
+        protected override void OnResume()
+        {
+            base.OnResume();
+            ChoiceApp.CurrentActivity = this;
+          
+            
+        }
+        public void CompletePreload(List<Data.ViewModels.ChoiceViewModel> obj)
+        {
+            System.Console.WriteLine("Number of Chioces preloaded = " + obj.Count);
+        }
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
             mFacebook.AuthorizeCallback(requestCode, (int)resultCode, data);
@@ -161,7 +176,9 @@ namespace ShakrLabs.Mobile.App.UI.MA
                 //parent.mRequestButton.Visibility = (ViewStates.Visible);
                 //parent.mUploadButton.Visibility = (ViewStates.Visible);
                 //parent.mPostButton.Visibility = (ViewStates.Visible);
-                parent.StartActivity(typeof(PollActivity));
+                LoginPresenter.Current.IsLoggedIn = true;
+                parent.GetUser();
+                parent.StartActivity(typeof(ChoiceActivity));
             }
 
             public void OnAuthFail(String error)
@@ -181,12 +198,14 @@ namespace ShakrLabs.Mobile.App.UI.MA
 
             public void OnLogoutBegin()
             {
-                parent.mText.Text = ("Logging out...");
+                Toast.MakeText(parent, "Logging Out", ToastLength.Short).Show();
             }
 
             public void OnLogoutFinish()
             {
-                parent.mText.Text = ("You have logged out! ");
+
+                Toast.MakeText(parent, "Logged Out", ToastLength.Short).Show();
+                //parent.mText.Text = ("You have logged out! ");
                 //parent.mRequestButton.Visibility = (ViewStates.Invisible);
                 //parent.mUploadButton.Visibility = (ViewStates.Invisible);
                 //parent.mPostButton.Visibility = (ViewStates.Invisible);
@@ -218,7 +237,7 @@ namespace ShakrLabs.Mobile.App.UI.MA
                     // thread that created a view hierarchy can touch its views."
                     parent.RunOnUiThread(delegate
                     {
-                        parent.mText.Text = ("Hello there, " + name + "!");
+                        ChoicePresenter.Current.GetRandomChoicesAsync(parent.CompletePreload, Guid.NewGuid().ToString());
                     });
                     //} catch (JSONException e) {
                     //	Log.Warn ("Facebook-Example", "JSON Error in response");
@@ -355,6 +374,8 @@ namespace ShakrLabs.Mobile.App.UI.MA
             }
         }
 
+
+       
     }
        public abstract class BaseDialogListener : Object, Facebook.IDialogListener
         {

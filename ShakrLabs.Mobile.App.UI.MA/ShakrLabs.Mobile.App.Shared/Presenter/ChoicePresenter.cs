@@ -48,8 +48,8 @@ namespace ShakrLabs.Mobile.App.Shared.Presenter
 
         private DataObjectResponse<List<ChoiceViewModel>> GetRandomChoiceViewModel(string userId)
         {
-            var ret = new ChoiceResponse();
-            DataObjectResponse<ChoiceResponse> response = ChoiceProvider.Current.GetRandomChoiceViewModel(userId);
+           var ret = new ChoiceResponse();
+           DataObjectResponse<ChoiceResponse> response = ChoiceProvider.Current.GetRandomChoiceViewModel(userId);
            if (response.HasError)
            {
                return DataObjectResponse<List<ChoiceViewModel>>.Create(response, null);

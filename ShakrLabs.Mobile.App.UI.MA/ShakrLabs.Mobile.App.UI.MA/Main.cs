@@ -24,7 +24,7 @@ namespace ShakrLabs.Mobile.App.UI.MA
         {
             Current = this;
         }
-
+        public static Activity CurrentActivity { get; set; }
         public override void OnCreate()
         {
             LogDebug("MAIN OnCreate ---------------------------------");
