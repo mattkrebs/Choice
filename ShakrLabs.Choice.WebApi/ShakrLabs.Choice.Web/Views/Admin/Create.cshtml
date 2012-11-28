@@ -17,11 +17,12 @@
             Category
         </div>
         <div class="editor-field">
-            <select id="CategoryId" name="CategoryId">
+            @Html.DropDownList("CategoryId",Model.GetCategories())
+            @*<select id="CategoryId" name="CategoryId">
                 <option value="1">LOLCats</option>
                 <option value="2">Sports</option>
                 <option value="3">Misc</option>
-            </select>
+            </select>*@
         </div>
         <div class="editor-label">
             <label for="file1">Filename:</label>

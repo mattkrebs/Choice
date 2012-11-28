@@ -33,7 +33,7 @@ namespace ShakrLabs.Choice.Web.Controllers
         public ActionResult Create()
         {
            
-            return View();
+            return View(new ChoiceViewModel() );
         }
 
         //

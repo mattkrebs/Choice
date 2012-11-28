@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShakrLabs.Choice.Web", "Sha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShakrLabs.Choice.Data", "ShakrLabs.Choice.Data\ShakrLabs.Choice.Data.csproj", "{D96A8E79-1E38-410A-9F64-97993903869F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShakrLabs.Choice.Tests", "ShakrLabs.Choice.Tests\ShakrLabs.Choice.Tests.csproj", "{3A348519-BF28-4A30-A3EE-27C69757693E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{D96A8E79-1E38-410A-9F64-97993903869F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D96A8E79-1E38-410A-9F64-97993903869F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D96A8E79-1E38-410A-9F64-97993903869F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A348519-BF28-4A30-A3EE-27C69757693E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A348519-BF28-4A30-A3EE-27C69757693E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A348519-BF28-4A30-A3EE-27C69757693E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A348519-BF28-4A30-A3EE-27C69757693E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

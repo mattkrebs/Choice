@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ChoiceModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="ChoiceModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="ChoiceModelStoreContainer">
           <EntitySet Name="Category" EntityType="ChoiceModel.Store.Category" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Poll" EntityType="ChoiceModel.Store.Poll" store:Type="Tables" Schema="dbo" />
@@ -40,6 +40,7 @@
           <Property Name="CategoryName" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="SubCategoryId" Type="int" />
           <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="Rank" Type="tinyint" />
         </EntityType>
         <EntityType Name="Poll">
           <Key>
@@ -144,8 +145,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ChoiceModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -185,6 +185,7 @@
           <Property Name="SubCategoryId" Type="Int32" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Polls" Relationship="ChoiceModel.FK_Poll_Category" FromRole="Category" ToRole="Poll" />
+          <Property Type="Byte" Name="Rank" />
         </EntityType>
         <EntityType Name="Poll">
           <Key>
@@ -307,6 +308,7 @@
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="ChoiceModel.Category">
               <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="Rank" ColumnName="Rank" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
                 <ScalarProperty Name="SubCategoryId" ColumnName="SubCategoryId" />
