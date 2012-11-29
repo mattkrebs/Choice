@@ -46,6 +46,10 @@ namespace ShakrLabs.Mobile.App.Shared.Presenter
             }
         }
 
+
+        public ChoiceViewModel NewChoice { get; set; }
+
+
         private DataObjectResponse<List<ChoiceViewModel>> GetRandomChoiceViewModel(string userId)
         {
            var ret = new ChoiceResponse();

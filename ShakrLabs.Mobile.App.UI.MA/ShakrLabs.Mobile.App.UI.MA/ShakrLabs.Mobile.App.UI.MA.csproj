@@ -73,6 +73,10 @@
     <AndroidResource Include="Resources\Layout\NewChoiceView.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\Layout-Land\NewChoiceView.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout-Land\ChooserView.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\ChooserView.axml" />
