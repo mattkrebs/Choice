@@ -78,27 +78,27 @@ namespace ShakrLabs.Choice.Web.Controllers
         }
 
         // DELETE api/Poll/5
-        public HttpResponseMessage DeletePoll(Guid id)
-        {
-            Poll poll = db.Polls.Find(id);
-            if (poll == null)
-            {
-                return Request.CreateResponse(HttpStatusCode.NotFound);
-            }
+        //public HttpResponseMessage DeletePoll(Guid id)
+        //{
+        //    Poll poll = db.Polls.Find(id);
+        //    if (poll == null)
+        //    {
+        //        return Request.CreateResponse(HttpStatusCode.NotFound);
+        //    }
 
-            db.Polls.Remove(poll);
+        //    db.Polls.Remove(poll);
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                return Request.CreateResponse(HttpStatusCode.NotFound);
-            }
+        //    try
+        //    {
+        //        db.SaveChanges();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        return Request.CreateResponse(HttpStatusCode.NotFound);
+        //    }
 
-            return Request.CreateResponse(HttpStatusCode.OK, poll);
-        }
+        //    return Request.CreateResponse(HttpStatusCode.OK, poll);
+        //}
 
         protected override void Dispose(bool disposing)
         {

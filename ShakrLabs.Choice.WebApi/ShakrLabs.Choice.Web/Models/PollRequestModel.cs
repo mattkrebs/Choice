@@ -8,13 +8,19 @@ namespace ShakrLabs.Choice.Web.Models
 {
     public class PollRequestModel
     {
-
-        
-        public IEnumerable<HttpPostedFileBase> Files { get; set; }
+        //public IEnumerable<HttpPostedFileBase> Files { get; set; }
         public byte Category { get; set; }
-        public Guid PollID { get; set; }
-        public int MemberId { get; set; }
+        //public Guid PollID { get; set; }
+        //public int MemberId { get; set; }
+        public string Token { get; set; }
+        public double lat { get; set; }
+        public double lng { get; set; }
+        public int MaxReturn { get; set; }
 
+        public PollRequestModel()
+        {
+            this.Token = String.Empty;
+        }
 
     }
 }

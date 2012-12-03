@@ -131,6 +131,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PollController.cs" />
+    <Compile Include="Controllers\PublicController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\WebPollController.cs" />
     <Compile Include="Global.asax.cs">
@@ -141,7 +142,9 @@
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IChoiceRepository.cs" />
     <Compile Include="Models\IPollRepository.cs" />
+    <Compile Include="Models\PollItemModel.cs" />
     <Compile Include="Models\PollItemResponseModel.cs" />
+    <Compile Include="Models\PollModel.cs" />
     <Compile Include="Models\PollRequestModel.cs" />
     <Compile Include="Models\PollResponseModel.cs" />
     <Compile Include="Models\FileDetails.cs" />

@@ -21,7 +21,7 @@ namespace ShakrLabs.Choice.Web.Models
               List<PollResponseModel> polls = new List<PollResponseModel>();
             foreach (var item in db.Polls)
 	        {
-                polls.Add(new PollResponseModel(item));
+                ///polls.Add(new PollResponseModel(item));
 	        }
             return polls;
           
@@ -34,7 +34,7 @@ namespace ShakrLabs.Choice.Web.Models
             {
                 return null;
             }
-            return new PollResponseModel(poll);
+            return new PollResponseModel();
         }
 
         public PollResponseModel Add(PollRequestModel poll){

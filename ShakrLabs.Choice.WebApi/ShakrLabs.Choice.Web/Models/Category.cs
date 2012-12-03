@@ -38,8 +38,8 @@ namespace ShakrLabs.Choice.Web.Models
 
            }
 
-           
-            return model;
+
+           return model.OrderBy(x => x.Rank).ThenBy(y => y.Name).ToList();
         }
 
         

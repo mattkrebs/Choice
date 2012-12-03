@@ -9,25 +9,31 @@ namespace ShakrLabs.Choice.Web.Models
     public class PollResponseModel
     {
 
-        public byte Category { get; set; }
-        public IEnumerable<PollItemResponseModel> Urls { get; set; }
-        public Guid PollID { get; set; }
-        public Guid MemberId { get; set; }
+     //   public byte Category { get; set; }
+        public List<PollModel> Polls { get; private set; }
+       // public Guid PollID { get; set; }
+        //public Guid MemberId { get; set; }
 
+        //public IEnumerable<Poll>
 
-        public PollResponseModel(Poll poll)
+        public void Add(Poll item)
         {
-            this.Category = poll.CategoryId;
-            this.MemberId = poll.UserId;
-            this.PollID = poll.PollId;
-            List<PollItemResponseModel> urls = new List<PollItemResponseModel>();
-            List<PollItem> items = poll.PollItems.ToList();
-            foreach (var item in items)
+            PollModel poll = new PollModel();
+            poll.Category = item.CategoryId;
+            poll.PollId = poll.PollId;
+            //this.MemberId = poll.UserId;
+            
+            if(item.PollItems.Count == 2)
             {
-                urls.Add(new PollItemResponseModel(item));
+                poll.Item1 = new PollItemModel(item.PollItems.ToList()[0]);
+                poll.Item2 = new PollItemModel(item.PollItems.ToList()[1]);
             }
-            this.Urls = urls;
+            this.Polls.Add(poll);
         }
-      
+
+        public PollResponseModel()
+        {
+            this.Polls = new List<PollModel>();
+        }
     }
 }
