@@ -8,8 +8,8 @@ namespace ShakrLabs.Choice.Web.Models
 {
     public class PollItemModel
     {
-        public Guid PollItemId { get; set; }
-        public string PollUrl { get; set; }
+        public Guid Id { get; set; }
+        public string Url { get; set; }
         public Decimal Rating { get; set; }
 
         public PollItemModel()
@@ -19,8 +19,8 @@ namespace ShakrLabs.Choice.Web.Models
 
         public PollItemModel(PollItem item)
         {
-            this.PollItemId = item.PollItemId;
-            this.PollUrl = item.ImageUrl;
+            this.Id = item.PollItemId;
+            this.Url = item.ImageUrl;
         }
 
 

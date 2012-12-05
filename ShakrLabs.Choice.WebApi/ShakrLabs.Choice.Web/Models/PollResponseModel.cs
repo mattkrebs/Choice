@@ -9,31 +9,54 @@ namespace ShakrLabs.Choice.Web.Models
     public class PollResponseModel
     {
 
-     //   public byte Category { get; set; }
-        public List<PollModel> Polls { get; private set; }
-       // public Guid PollID { get; set; }
-        //public Guid MemberId { get; set; }
+        //   public byte Category { get; set; }
+        public IEnumerable<PollModel> Polls
+        {
+            get
+            {
+                return _PollList == null ? null : _PollList.AsEnumerable();
+            }
+        }
+
+        private List<PollModel> _PollList { get; set; }
+
+        public string BatchId { get; set; }
+        // public Guid PollID { get; set; }
+        public Guid MemberId { get; set; }
 
         //public IEnumerable<Poll>
 
         public void Add(Poll item)
         {
+
             PollModel poll = new PollModel();
-            poll.Category = item.CategoryId;
+            poll.Cat = item.CategoryId;
             poll.PollId = poll.PollId;
             //this.MemberId = poll.UserId;
+
             
-            if(item.PollItems.Count == 2)
-            {
-                poll.Item1 = new PollItemModel(item.PollItems.ToList()[0]);
-                poll.Item2 = new PollItemModel(item.PollItems.ToList()[1]);
-            }
-            this.Polls.Add(poll);
+            this._PollList.Add(poll);
         }
 
+
+        public PollResponseModel(List<Poll> polls)
+        {
+            
+            this._PollList = new List<PollModel>();
+            if(polls != null)
+            {
+                foreach(Poll p in polls)
+                {
+                    this._PollList.Add(new PollModel(p));
+                }
+
+            }
+            this.BatchId = Guid.NewGuid().ToString();
+        }
         public PollResponseModel()
         {
-            this.Polls = new List<PollModel>();
+            this._PollList = new List<PollModel>();
+            this.BatchId = Guid.NewGuid().ToString();
         }
     }
 }

@@ -130,8 +130,12 @@
     <Compile Include="BlobHelper.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PollController.cs" />
-    <Compile Include="Controllers\PublicController.cs" />
+    <Compile Include="Controllers\PollController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\PublicController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\WebPollController.cs" />
     <Compile Include="Global.asax.cs">
@@ -214,7 +218,9 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <None Include="Properties\PublishProfiles\choice - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\choice - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\choice - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\choice - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
