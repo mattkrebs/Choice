@@ -1,4 +1,5 @@
-using ShakrLabs.Mobile.App.Data.Providers.Response;
+
+using ShakrLabs.Mobile.App.Data.MA.Providers;
 using System;
 
 
@@ -9,6 +10,6 @@ namespace ShakrLabs.Mobile.App.Shared
         void OnShowErrorMessage(string message);
         void OnShowActivityIndicator();
         void OnHideActivityIndicator();
-        void GetDataAsync<T>(Func<DataObjectResponse<T>> dataAccessFunction, Action<T> successAction, Action<DataAccessError> failureAction = null);
+        void GetDataAsync<T>(Func<DataObjectResponse<T>> dataAccessFunction, Action<T> successAction, Action<string> failureAction = null);
     }
 }

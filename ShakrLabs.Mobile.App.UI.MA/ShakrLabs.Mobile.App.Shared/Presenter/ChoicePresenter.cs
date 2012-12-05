@@ -9,14 +9,13 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using ShakrLabs.Mobile.App.Data.Models;
 using ShakrLabs.Mobile.App.Data.Providers;
 using System.Net;
 using Android.Util;
 using System.Threading.Tasks;
-using ShakrLabs.Mobile.App.Data.Providers.Response;
 using ShakrLabs.Mobile.App.Data.ViewModels;
 using ShakrLabs.Mobile.App.Data.MA.ServiceModel;
+using ShakrLabs.Mobile.App.Data.MA.Providers;
 
 namespace ShakrLabs.Mobile.App.Shared.Presenter
 {
@@ -50,31 +49,24 @@ namespace ShakrLabs.Mobile.App.Shared.Presenter
         public ChoiceViewModel NewChoice { get; set; }
 
 
-        private DataObjectResponse<List<ChoiceViewModel>> GetRandomChoiceViewModel(string userId)
+        private DataObjectResponse<ChoiceViewModel> GetRandomChoices(string token)
         {
-           var ret = new ChoiceResponse();
-           DataObjectResponse<ChoiceResponse> response = ChoiceProvider.Current.GetRandomChoiceViewModel(userId);
-           if (response.HasError)
-           {
-               return DataObjectResponse<List<ChoiceViewModel>>.Create(response, null);
-           }
-
-           return DataObjectResponse<List<ChoiceViewModel>>.Create(response.DataObject.Choices, DataObjectSource.Remote);
+          
+           DataObjectResponse<ChoiceViewModel> response = ChoiceProvider.Current.GetRandomChoices(token);
+           return response;
 
         }
 
 
-        public void GetRandomChoicesAsync(Action<List<ChoiceViewModel>> successMethod, string userId)
+        public void GetRandomChoicesAsync(Action<ChoiceViewModel> successMethod, string token)
         {
-            _sharedApp.GetDataAsync(() => GetRandomChoiceViewModel(userId), successMethod);           
+            _sharedApp.GetDataAsync(() => GetRandomChoices(token), successMethod);           
         }
-
-
 
 
         public ChoiceViewModel GetChoice()
         {
-           return ChoiceProvider.Current.GetChoice(null);
+           return ChoiceProvider.Current.GetChoices(null);
         }
     }
 }

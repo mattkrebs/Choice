@@ -18,6 +18,7 @@ using Object = Java.Lang.Object;
 using Android.Content.PM;
 using Java.Security;
 using ShakrLabs.Mobile.App.Shared.Presenter;
+using ShakrLabs.Mobile.App.Data.ViewModels;
 
 namespace ShakrLabs.Mobile.App.UI.MA
 {
@@ -84,6 +85,11 @@ namespace ShakrLabs.Mobile.App.UI.MA
             SessionEvents.AddAuthListener(new SampleAuthListener(this));
             SessionEvents.AddLogoutListener(new SampleLogoutListener(this));
             mLoginButton.Init(this, mFacebook);
+
+
+            //Preload Chioces
+            ChoicePresenter.Current.GetRandomChoicesAsync(CompletePreload, Guid.NewGuid().ToString());
+
 
             //mRequestButton.Click += delegate
             //{
@@ -153,14 +159,17 @@ namespace ShakrLabs.Mobile.App.UI.MA
           
             
         }
-        public void CompletePreload(List<Data.ViewModels.ChoiceViewModel> obj)
+        public void CompletePreload(Data.ViewModels.ChoiceViewModel obj)
         {
-            System.Console.WriteLine("Number of Chioces preloaded = " + obj.Count);
+            List<Poll> polls = obj.Polls; 
+            System.Console.WriteLine("Number of Chioces preloaded = " + obj.Polls.Count);
         }
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
             mFacebook.AuthorizeCallback(requestCode, (int)resultCode, data);
         }
+
+
 
         public class SampleAuthListener : SessionEvents.IAuthListener
         {

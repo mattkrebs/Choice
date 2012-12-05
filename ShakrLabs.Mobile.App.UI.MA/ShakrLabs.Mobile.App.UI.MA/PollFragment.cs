@@ -11,7 +11,6 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
-using ShakrLabs.Mobile.App.Data.Models;
 using Java.Lang;
 using Android.Graphics.Drawables;
 using ShakrLabs.Mobile.App.Data.ViewModels;
@@ -102,12 +101,12 @@ namespace ShakrLabs.Mobile.App.UI.MA
             WebClient web = new WebClient();
            
                 web.DownloadDataCompleted += new DownloadDataCompletedEventHandler(web_DownloadDataCompleted);
-                web.DownloadDataAsync(new Uri(poll.ImageUrl1));
+                web.DownloadDataAsync(new Uri(poll.Polls[0].Images[0].Url));
 
 
                 WebClient web1 = new WebClient();
                 web1.DownloadDataCompleted += new DownloadDataCompletedEventHandler(web_DownloadDataCompleted2);
-                web1.DownloadDataAsync(new Uri(poll.ImageUrl2));
+                web1.DownloadDataAsync(new Uri(poll.Polls[0].Images[1].Url));
           
           
 

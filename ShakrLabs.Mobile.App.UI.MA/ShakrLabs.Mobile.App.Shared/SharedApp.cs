@@ -1,5 +1,5 @@
 using ShakrLabs.Mobile.App.Data;
-using ShakrLabs.Mobile.App.Data.Providers.Response;
+using ShakrLabs.Mobile.App.Data.MA.Providers;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -43,7 +43,7 @@ namespace ShakrLabs.Mobile.App.Shared
             }
         }
 
-        public void GetDataAsync<T>(Func<DataObjectResponse<T>> dataAccessFunction, Action<T> successAction, Action<DataAccessError> failureAction = null)
+        public void GetDataAsync<T>(Func<DataObjectResponse<T>> dataAccessFunction, Action<T> successAction, Action<string> failureAction = null)
         {
 			_taskRunning = false;
 
@@ -80,7 +80,7 @@ namespace ShakrLabs.Mobile.App.Shared
                     }
                     catch (Exception e)
                     {
-                        return DataObjectResponse<T>.Create(DataAccessError.Create(e), DataObjectSource.Local);
+                        return DataObjectResponse<T>.Create(e.Message);
                     }
                 }
                 // ContinueWith accommodates an action that runs after the previous thread completes.
@@ -93,16 +93,16 @@ namespace ShakrLabs.Mobile.App.Shared
                         _taskRunning = false;
 
                         var response = t.Result;
-                        if (response.HasError)
+                        if (!String.IsNullOrEmpty(response.ErrorMessage))
                         {
                             OnHideActivityIndicator();
                             if (failureAction == null)
                             {
-                                OnShowErrorMessage(response.Error.Message);
+                                OnShowErrorMessage(response.ErrorMessage);
                             }
                             else
                             {
-                                failureAction(response.Error);
+                                failureAction(response.ErrorMessage);
                             }
                         }
                         else

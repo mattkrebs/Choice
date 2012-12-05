@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using System.IO;
 using Android.Util;
+using ShakrLabs.Mobile.App.Shared;
 
 namespace ShakrLabs.Mobile.App.UI.MA
 {
@@ -30,8 +31,8 @@ namespace ShakrLabs.Mobile.App.UI.MA
             LogDebug("MAIN OnCreate ---------------------------------");
             base.OnCreate();
             var getAppAssetStringDelegate = new Func<string, string>(GetAppAssetString);
-           // SharedApp.SetAppAssetStringDelegate(getAppAssetStringDelegate);
-           // SharedApp.OnStart();
+            SharedApp.SetAppAssetStringDelegate(getAppAssetStringDelegate);
+            //SharedApp.OnStart();
         }
 
         public override void OnTerminate()

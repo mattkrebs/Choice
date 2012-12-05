@@ -9,7 +9,6 @@ using Android.OS;
 using ShakrLabs.Mobile.App.Shared.Presenter;
 using System.Net;
 using Android.Graphics;
-using ShakrLabs.Mobile.App.Data.Models;
 using Android.Views.Animations;
 using ShakrLabs.Mobile.App.Data.Providers;
 using System.Collections.Generic;

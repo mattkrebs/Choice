@@ -57,7 +57,7 @@ namespace ShakrLabs.Mobile.App.Data
 #elif ANDROID
         private static readonly string AppPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 #else
-        public static readonly string AppPath = Environment.CurrentDirectory; // @"C:\Work\BlueCrossBlueShield-LA\MobileApp\BCBS\WindowsTest\WindowsTest";
+        public static readonly string AppPath = Environment.CurrentDirectory;
 #endif
 
         private Func<string, string> _appAssetStringDelegate;
@@ -109,7 +109,7 @@ namespace ShakrLabs.Mobile.App.Data
         //        return Path.Combine(AppPath, Path.Combine(ConfigFolderName, AppConfigLocalSourceFileName));
         //    }
         //}
-
+        
         public string GetValue(string key)
         {
             if (_appConfigDictionary == null)

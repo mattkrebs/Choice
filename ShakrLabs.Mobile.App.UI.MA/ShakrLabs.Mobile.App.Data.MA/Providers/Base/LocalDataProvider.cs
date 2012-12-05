@@ -8,6 +8,7 @@ namespace ShakrLabs.Mobile.App.Data.Providers.Base
 
         private readonly FileStorage<TDataObject> _fileStorage;
         private readonly MemoryStorage<TDataObject> _memoryStorage;
+        
         private readonly string _providerInstanceUri; //uniquely identifies an instance of a data provider of any type.
 
         #endregion

@@ -1,93 +1,50 @@
-﻿
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace ShakrLabs.Mobile.App.Data.Providers.Response
+using Android.App;
+using Android.Content;
+using Android.OS;
+using Android.Runtime;
+using Android.Views;
+using Android.Widget;
+using System.Net;
+using ShakrLabs.Mobile.App.Data.Providers.Base;
+using System.Web;
+
+namespace ShakrLabs.Mobile.App.Data.MA.Providers
 {
-	public enum DataObjectSource
-	{
-        Unspecified,
-		Local,
-        Remote
-	}
-
-    public class DataObjectResponse<T> : DataObjectResponseBase
+    public class DataObjectResponse <T>
     {
-        #region Fields
 
         public T DataObject { get; private set; }
-        #endregion Fields
 
+        public string ErrorMessage { get; set; }
+        public HttpStatusCode StatusCode { get; set; }
 
-        #region Properties
-	
-		#endregion Properties
-
-
-		#region Constructors & Initialization
-        #region Constructors
-        private DataObjectResponse(T dataObject, DataObjectSource dataObjectSource)
-			: base(dataObjectSource)
+        public DataObjectResponse(T dataObject, string error)
         {
             DataObject = dataObject;
+            ErrorMessage = error;
         }
-	
-		private DataObjectResponse(DataAccessError error, DataObjectSource dataObjectSource)
-			: base(error, dataObjectSource)
-        { }
-
-        private DataObjectResponse(DataObjectSource dataObjectSource): base(dataObjectSource)
+        public DataObjectResponse( string error)
         {
-            
+            ErrorMessage = error;
         }
-        #endregion
-
-
-        #region Factory Methods
-        public static DataObjectResponse<T> Create(DataObjectSource dataObjectSource)
+        public static DataObjectResponse<T> Create(T dataObject, string errorMessage)
         {
-            return new DataObjectResponse<T>(dataObjectSource);
-        }
-
-		public static DataObjectResponse<T> Create(DataAccessError dataAccessError, DataObjectSource dataObjectSource)
-        {
-			return new DataObjectResponse<T>(dataAccessError, dataObjectSource);
-        }
-
-		public static DataObjectResponse<T> Create(T dataObject, DataObjectSource dataObjectSource)
-        {
-            if (dataObject == null) // will always be false for a value type which is the desired effect. Ignore the Resharper warning.
-            {
-                Console.WriteLine("Null DataObject sent to DataObjectResponse<T>.Create");
-				//return new DataObjectResponse<T>(DataAccessError.CreateNoContentErrorCode(), dataObjectSource);
-            }
-			return new DataObjectResponse<T>(dataObject, dataObjectSource);
-        }
-
-        /// <summary>
-        /// Creates a DataObjectResponse from another response. 
-        /// </summary>
-        /// <param name="dataObjectResponse"></param>
-        /// <param name="dataObject"> </param>
-        /// <returns></returns>
-        public static DataObjectResponse<T> Create(DataObjectResponseBase dataObjectResponse, T dataObject)
-        {
-            var objectResponse = Create(dataObjectResponse.Error, dataObjectResponse.ObjectSource);
-            objectResponse.DataObject = dataObject;
+            var objectResponse = new DataObjectResponse<T>(dataObject, errorMessage);
             return objectResponse;
         }
-        #endregion
-        #endregion Constructors & Initialization
+        public static DataObjectResponse<T> Create(string errorMessage)
+        {
+            var objectResponse = new DataObjectResponse<T>(errorMessage);
+            return objectResponse;
+        }
 
 
-        #region Methods
-        //public T GetDataObjectOrHandleError()
-        //{
-        //    if (HasError)
-        //    {
-        //        throw DataAccessException.Create(Error);
-        //    }
-        //    return DataObject;
-        //}
-        #endregion Methods
+     
+
     }
 }

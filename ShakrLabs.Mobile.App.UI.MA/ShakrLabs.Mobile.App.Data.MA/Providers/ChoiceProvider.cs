@@ -9,17 +9,15 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using ShakrLabs.Mobile.App.Data.Models;
 using System.Threading.Tasks;
 using Java.Lang;
-using ShakrLabs.Mobile.App.Data.Providers.Base;
-using ShakrLabs.Mobile.App.Data.Providers.Response;
 using ShakrLabs.Mobile.App.Data.MA.ServiceModel;
 using ShakrLabs.Mobile.App.Data.ViewModels;
+using ShakrLabs.Mobile.App.Data.MA.Providers;
 
 namespace ShakrLabs.Mobile.App.Data.Providers
 {
-    public class ChoiceProvider : RemoteDataProvider<ChoiceResponse>
+    public class ChoiceProvider : RemoteDataProvider<ChoiceViewModel>
     {
         int previous;
         private static ChoiceProvider _choiceProvider;
@@ -36,38 +34,42 @@ namespace ShakrLabs.Mobile.App.Data.Providers
         }
 
         private ChoiceProvider()
-            : base("ChoiceProvider", true, true)
+            : base(AppConfig.Current.PublicUriBase + "GetBatch/")
         {
-            _serviceUriSuffix = "Choice/";
-            _authenticated = true;
+         
         }
+        
 
-
-        public DataObjectResponse<ChoiceResponse> GetRandomChoiceViewModel(string userId)
+        public DataObjectResponse<ChoiceViewModel> GetRandomChoices(string token)
         {
-            var parameters = new ParameterList
+            var parameters = new Dictionary<string,string>()
             {
-                {"userid",userId}
+                {"token",token}
             };
             var serviceRet = GetObjectResponse(parameters);
             return serviceRet;
         }
 
-        public ChoiceViewModel GetChoice(Dictionary<string, string> parameters)
+        public ChoiceViewModel GetChoices(Dictionary<string, string> parameters)
         {
-            ChoiceViewModel polls = new ChoiceViewModel()
-            {
-                CategoryId = 1,
-                ImageUrl1 = pollImage(),
-                ImageUrl2 = pollImage(),
-                MemberId = Guid.NewGuid(),
-                PollId = Guid.NewGuid()
-            };
             
+            Poll polls = new Poll()
+            {
+               
+                Images = new List<Image>() {pollImage(), pollImage()},
+                Cat = 1,
+                TotRats = 33,
+                PollId = Guid.NewGuid().ToString()
+            };
 
+            ChoiceViewModel c = new ChoiceViewModel()
+            {
+                BatchId = "asdf",
+                Polls = new List<Poll>() { polls }
+            };
              
            
-            return polls;
+            return c;
 
         }
 
@@ -79,16 +81,19 @@ namespace ShakrLabs.Mobile.App.Data.Providers
             "http://www.lolcats.com/images/u/09/03/lolcatsdotcomqicuw9j0uqt8a23t.jpg", 
             "http://www.lolcats.com/images/u/12/24/lolcatsdotcompromdate.jpg", 
             "http://3.bp.blogspot.com/-iWZ2WzwPr7E/TciqLegMuHI/AAAAAAAAAD0/bAuHtfDO-5w/s1600/lolcats.jpg" };
+       
 
-
-        public string pollImage()
+        public Image pollImage()
         {
+            var i = new Image();
             Thread.Sleep(200);
             Random random = new Random();
             int randomNumber = random.Next(0, 8);
-
+            i.Id = Guid.NewGuid().ToString();
+            i.Rating = 40;
+            i.Url = urls[randomNumber];
             
-            return urls[randomNumber];
+            return i;
 
         }
 

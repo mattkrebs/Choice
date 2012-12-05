@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ArrayOfKeyValuePair xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <KeyValuePair>
-    <Key>UriBase</Key>
-    <Value>http://192.168.1.40/choice/api</Value>
-  </KeyValuePair>
-</ArrayOfKeyValuePair>
+<ArrayOfParameter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Parameter>
+    <Name>PublicUriBase</Name>
+    <Value>https://choice.azurewebsites.net/api/public/</Value>
+  </Parameter>
+</ArrayOfParameter>
