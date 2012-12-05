@@ -10,7 +10,8 @@ namespace ShakrLabs.Choice.Web.Models
     {
         public Guid Id { get; set; }
         public string Url { get; set; }
-        public Decimal Rating { get; set; }
+        //public Decimal Rating { get; set; }
+        public Int32 Count { get; set; }
 
         public PollItemModel()
         {

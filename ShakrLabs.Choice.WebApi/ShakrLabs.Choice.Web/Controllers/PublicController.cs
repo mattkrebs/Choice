@@ -82,7 +82,7 @@ namespace ShakrLabs.Choice.Web.Controllers
         }
 
         //[System.Web.Mvc.HttpGet]
-        public HttpResponseMessage GetRating(string token, Guid itemId)
+        public HttpResponseMessage GetAddRating(string token, Guid itemId)
         {
             //parse batch id to get user id from it
             Guid checkGuid = new Guid();
