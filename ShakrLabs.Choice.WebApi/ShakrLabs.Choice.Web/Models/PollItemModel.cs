@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using ShakrLabs.Choice.Data;
 
-namespace ShakrLabs.Choice.Web.Models
+namespace ShakrLabs.Choice.Data.Models
 {
     public class PollItemModel
     {

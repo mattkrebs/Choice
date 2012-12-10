@@ -1,15 +1,17 @@
 ﻿using Microsoft.WindowsAzure;
-using Microsoft.WindowsAzure.StorageClient;
+//using Microsoft.WindowsAzure.StorageClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
-using ShakrLabs.Choice.Data;
 
-namespace ShakrLabs.Choice.Web.Models
+using ShakrLabs.Choice.Data;
+using ShakrLabs.Choice.Web.Models;
+using Microsoft.WindowsAzure.StorageClient;
+
+namespace ShakrLabs.Choice.Data.Models
 {
     public class ChoiceRepository : IChoiceRepository
     {

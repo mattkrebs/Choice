@@ -1,4 +1,5 @@
 ﻿using Microsoft.WindowsAzure.StorageClient;
+using ShakrLabs.Choice.Data.Models;
 using ShakrLabs.Choice.Web.Models;
 using System;
 using System.Collections.Generic;

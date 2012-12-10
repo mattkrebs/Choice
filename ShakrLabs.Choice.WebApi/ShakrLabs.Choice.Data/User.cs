@@ -21,9 +21,11 @@ namespace ShakrLabs.Choice.Data
         }
     
         public System.Guid UserId { get; set; }
-        public string FacebookId { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public Nullable<bool> Active { get; set; }
+        public string AppId { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
+        public Nullable<byte> AppTypeId { get; set; }
     
         public virtual ICollection<Poll> Polls { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }

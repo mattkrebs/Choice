@@ -8,6 +8,7 @@ using ShakrLabs.Choice.Data;
 using ShakrLabs.Choice.Web.Models;
 using System.Net;
 using System.Net.Http;
+using ShakrLabs.Choice.Data.Models;
 
 
 namespace ShakrLabs.Choice.Web.Controllers
@@ -38,6 +39,32 @@ namespace ShakrLabs.Choice.Web.Controllers
         public String GetElvis()
         {
             return "is alive";
+        }
+
+
+        public UserModel GetCreateNewUser(string appId)
+        {
+            //check if id already exists by  appId
+            User userItem = new User();
+
+            User checkUser = db.Users.Where(x => x.AppId == appId).FirstOrDefault();
+
+            if (checkUser != null && checkUser.UserId != Guid.Empty)
+            {
+                userItem = checkUser;
+            }
+            else
+            {
+                userItem.UserId = Guid.NewGuid();
+                userItem.CreatedDate = DateTime.Now;
+                userItem.AppId = appId;
+                userItem.AppTypeId = 1;
+                db.Users.Add(userItem);
+            }
+            userItem.Active = true;
+            db.SaveChanges();
+
+            return new UserModel(userItem);
         }
 
         private User CreateUser()

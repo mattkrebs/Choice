@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ShakrLabs.Choice.Web.Models
+namespace ShakrLabs.Choice.Data.Models
 {
     public class FileDetails
     {

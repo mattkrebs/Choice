@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+//using System.Web;
 
-namespace ShakrLabs.Choice.Web.Models
+namespace ShakrLabs.Choice.Data.Models
 {
     public class PollResponseModel
     {

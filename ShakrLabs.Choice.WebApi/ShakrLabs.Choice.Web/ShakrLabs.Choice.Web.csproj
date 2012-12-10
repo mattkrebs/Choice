@@ -141,18 +141,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\ChoiceRepository.cs" />
     <Compile Include="Models\ChoiceViewModel.cs" />
-    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\FileDetails.cs" />
     <Compile Include="Models\IChoiceRepository.cs" />
     <Compile Include="Models\IPollRepository.cs" />
     <Compile Include="Models\PollItemModel.cs" />
     <Compile Include="Models\PollItemResponseModel.cs" />
     <Compile Include="Models\PollModel.cs" />
+    <Compile Include="Models\PollRepository.cs" />
     <Compile Include="Models\PollRequestModel.cs" />
     <Compile Include="Models\PollResponseModel.cs" />
-    <Compile Include="Models\FileDetails.cs" />
-    <Compile Include="Models\PollRepository.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

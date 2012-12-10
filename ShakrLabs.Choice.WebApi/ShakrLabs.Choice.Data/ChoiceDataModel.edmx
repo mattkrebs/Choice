@@ -81,9 +81,11 @@
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="FacebookId" Type="varchar" MaxLength="255" />
+          <Property Name="AppId" Type="varchar" MaxLength="255" />
           <Property Name="CreatedDate" Type="smalldatetime" Nullable="false" />
           <Property Name="Active" Type="bit" />
+          <Property Name="ModifiedDate" Type="smalldatetime" />
+          <Property Name="AppTypeId" Type="tinyint" />
         </EntityType>
         <Association Name="FK_Poll_Category">
           <End Role="Category" Type="ChoiceModel.Store.Category" Multiplicity="1" />
@@ -233,11 +235,13 @@
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="Guid" Nullable="false" />
-          <Property Name="FacebookId" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Active" Type="Boolean" />
           <NavigationProperty Name="Polls" Relationship="ChoiceModel.FK_Poll_User" FromRole="User" ToRole="Poll" />
           <NavigationProperty Name="Ratings" Relationship="ChoiceModel.FK_Rating_User" FromRole="User" ToRole="Rating" />
+          <Property Type="String" Name="AppId" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="ModifiedDate" Precision="0" />
+          <Property Type="Byte" Name="AppTypeId" />
         </EntityType>
         <Association Name="FK_Poll_Category">
           <End Role="Category" Type="ChoiceModel.Category" Multiplicity="1" />
@@ -356,8 +360,10 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="ChoiceModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="AppTypeId" ColumnName="AppTypeId" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="AppId" ColumnName="AppId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="FacebookId" ColumnName="FacebookId" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
               </MappingFragment>

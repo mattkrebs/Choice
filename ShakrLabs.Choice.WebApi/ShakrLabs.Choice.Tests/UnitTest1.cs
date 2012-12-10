@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ShakrLabs.Choice.Web.Models;
+using ShakrLabs.Choice.Data.Models;
 
 namespace ShakrLabs.Choice.Tests
 {
