@@ -12,12 +12,15 @@ using Android.Widget;
 using Android.Provider;
 using Android.Graphics;
 using Android.Net;
-using ShakrLabs.Mobile.App.Shared.Presenter;
-using ShakrLabs.Mobile.App.Data.ViewModels;
+using Xamarin.Media;
+using System.Threading.Tasks;
 
-namespace ShakrLabs.Mobile.App.UI.MA
+using Choice.Core;
+
+namespace Choice.Android
 {
-    [Activity(Label = "New Choice", ScreenOrientation= Android.Content.PM.ScreenOrientation.Portrait)]
+
+    [Activity(Label = "New Choice")]
     public class NewChoiceActivity : BaseActivity
     {
         private ImageView _choiceImage1;
@@ -25,6 +28,8 @@ namespace ShakrLabs.Mobile.App.UI.MA
         private ImageView _cameraButton1;
         private ImageView _cameraButton2;
         private Button _btnSave;
+
+        private Bitmap bitmap;
 
         public const int SAVECHOICE = 0;
         public const int CHOICEERROR = 1;
@@ -41,13 +46,13 @@ namespace ShakrLabs.Mobile.App.UI.MA
 
         public string AlbumDirectory = "Choice";
 
-        Java.IO.File _file;
+       
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.NewChoiceView);
-
+            
             _choiceImage1 = this.FindViewById<ImageView>(Resource.Id.imgChoice1);
            
             _choiceImage2 = this.FindViewById<ImageView>(Resource.Id.imgChoice2);
@@ -60,7 +65,7 @@ namespace ShakrLabs.Mobile.App.UI.MA
             _cameraButton1.Click += _choiceImage1_Click;
             _cameraButton2.Click += _choiceImage2_Click;
 
-           
+            Cleanup();
 
             // Create your application here
         }
@@ -98,28 +103,119 @@ namespace ShakrLabs.Mobile.App.UI.MA
 
         private void SelectFromGallery2(object sender, DialogClickEventArgs e)
         {
-            var imageIntent = new Intent();
-            imageIntent.SetType("image/*");
-            imageIntent.SetAction(Intent.ActionGetContent);
-            StartActivityForResult(Intent.CreateChooser(imageIntent, "Select photo"), PHOTO_CHOICE_TWO);
+            var picker = new MediaPicker(this);
+
+            if (!picker.PhotosSupported)
+            {
+                ShowUnsupported();
+                return;
+            }
+
+            picker.PickPhotoAsync().ContinueWith(t =>
+            {
+                if (t.IsCanceled)
+                    return;
+
+                RunOnUiThread(() => ShowImage(PHOTO_CHOICE_TWO, t.Result.Path));
+            });
         }
         private void SelectFromGallery(object sender, DialogClickEventArgs e)
         {
-            var imageIntent = new Intent();
-            imageIntent.SetType("image/*");
-            imageIntent.SetAction(Intent.ActionGetContent);
-            StartActivityForResult(Intent.CreateChooser(imageIntent, "Select photo"), PHOTO_CHOICE_ONE);
+            var picker = new MediaPicker(this);
+
+            if (!picker.PhotosSupported)
+            {
+                ShowUnsupported();
+                return;
+            }
+
+            picker.PickPhotoAsync().ContinueWith(t =>
+            {
+                if (t.IsCanceled)
+                    return;
+
+                RunOnUiThread(() => ShowImage(PHOTO_CHOICE_ONE, t.Result.Path));
+            });
         }
         private void TakePhoto2(object sender, DialogClickEventArgs e)
         {
             photoPath2 = createImageFile();
             DispatchTakePictureEvent(PHOTO_CHOICE_TWO, photoPath2);
         }
+        private Toast unsupportedToast;
+        private void ShowUnsupported()
+        {
+            if (this.unsupportedToast != null)
+            {
+                this.unsupportedToast.Cancel();
+                this.unsupportedToast.Dispose();
+            }
 
+            this.unsupportedToast = Toast.MakeText(this, "Your device does not support this feature", ToastLength.Long);
+            this.unsupportedToast.Show();
+        }
         private void TakePhoto(object sender, DialogClickEventArgs e)
         {
             photoPath1 = createImageFile();
             DispatchTakePictureEvent(PHOTO_CHOICE_ONE, photoPath1);
+        }
+        private void ShowImage(int image, string path)
+        {
+            if (image == PHOTO_CHOICE_ONE)
+            {
+
+                DecodeBitmapAsync(path, 400, 400).ContinueWith(t =>
+                {
+                    this._choiceImage1.SetImageBitmap(this.bitmap = t.Result);                    
+                    _cameraButton1.Visibility = ViewStates.Gone;
+                }, TaskScheduler.FromCurrentSynchronizationContext());
+            }
+            else
+            {
+                DecodeBitmapAsync(path, 400, 400).ContinueWith(t =>
+                {
+                    this._choiceImage2.SetImageBitmap(this.bitmap = t.Result);
+                    _cameraButton1.Visibility = ViewStates.Gone;
+
+                }, TaskScheduler.FromCurrentSynchronizationContext());
+            }
+        }
+        private static Task<Bitmap> DecodeBitmapAsync(string path, int desiredWidth, int desiredHeight)
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.InJustDecodeBounds = true;
+                BitmapFactory.DecodeFile(path, options);
+
+                int height = options.OutHeight;
+                int width = options.OutWidth;
+
+                int sampleSize = 1;
+                if (height > desiredHeight || width > desiredWidth)
+                {
+                    int heightRatio = (int)Math.Round((float)height / (float)desiredHeight);
+                    int widthRatio = (int)Math.Round((float)width / (float)desiredWidth);
+                    sampleSize = Math.Min(heightRatio, widthRatio);
+                }
+
+                options = new BitmapFactory.Options();
+                options.InSampleSize = sampleSize;
+
+                return BitmapFactory.DecodeFile(path, options);
+            });
+        }
+
+       
+        private void Cleanup()
+        {
+            if (this.bitmap == null)
+                return;
+
+            _choiceImage1.SetImageBitmap(null);
+            _choiceImage2.SetImageBitmap(null);
+            this.bitmap.Dispose();
+            this.bitmap = null;
         }
 
         private void Cancel(object sender, DialogClickEventArgs e)
@@ -129,7 +225,8 @@ namespace ShakrLabs.Mobile.App.UI.MA
 
         private void SaveChoice(object sender, DialogClickEventArgs e)
         {
-            System.Console.WriteLine("Saving Choice");
+			ChoiceViewModel viewModel = new ChoiceViewModel();
+
         }
 
         private void ItemSelected(object sender, DialogClickEventArgs e)
@@ -164,77 +261,30 @@ namespace ShakrLabs.Mobile.App.UI.MA
 
         private void DispatchTakePictureEvent(int code, string name)
         {
-            var intent = new Intent(MediaStore.ActionImageCapture);
-
-           
-            var availableActivities = this.PackageManager.QueryIntentActivities(intent, Android.Content.PM.PackageInfoFlags.MatchDefaultOnly);
-
-            if (availableActivities != null && availableActivities.Count > 0)
+            var picker = new MediaPicker(this);
+            if (!picker.IsCameraAvailable || !picker.PhotosSupported)
             {
-                var dir = new Java.IO.File(
-                    Android.OS.Environment.GetExternalStoragePublicDirectory(
-                    Android.OS.Environment.DirectoryPictures), "ChoiceApp");
-
-                if (!dir.Exists())
-                {
-                    dir.Mkdirs();
-                }
-
-                _file = new Java.IO.File(dir, name);
-
-                intent.PutExtra(MediaStore.ExtraOutput,
-                Android.Net.Uri.FromFile(_file));
-                StartActivityForResult(intent, code);
+                ShowUnsupported();
+                return;
             }
+
+            picker.TakePhotoAsync(new StoreCameraMediaOptions
+            {
+                Name = "name",
+                Directory = "ChoiceImages"
+            })
+            .ContinueWith(t =>
+            {
+                if (t.IsCanceled)
+                    return;
+
+                RunOnUiThread(() => ShowImage(code, t.Result.Path));
+            });
         }
 
-        protected override void OnActivityResult(int requestCode, Result resultCode, Intent intent)
-        {
-            base.OnActivityResult(requestCode, resultCode, intent);
+       
 
-
-
-            if (_file != null)
-            {
-                var contentUri = Android.Net.Uri.FromFile(_file);
-                var bitmap = MediaStore.Images.Media.GetBitmap(ContentResolver, contentUri);
-                var mediaScanIntent = new Intent(Intent.ActionMediaScannerScanFile);
-
-                mediaScanIntent.SetData(contentUri);
-                this.SendBroadcast(mediaScanIntent);
-                if (requestCode == PHOTO_CHOICE_ONE)
-                {
-                    _choiceImage1.SetImageBitmap(bitmap);
-                    _cameraButton1.Visibility = ViewStates.Gone;
-                }
-                else
-                {
-                    _choiceImage2.SetImageBitmap(bitmap);
-                    _cameraButton2.Visibility = ViewStates.Gone;
-                }
-
-                bitmap.Dispose();
-            }
-            else if (resultCode == Result.Ok)
-            {
-                if (requestCode == PHOTO_CHOICE_ONE)
-                {
-                    _choiceImage1.SetImageURI(intent.Data);
-                    _cameraButton1.Visibility = ViewStates.Gone;
-                }
-                else
-                {
-                    _choiceImage2.SetImageURI(intent.Data);
-                    _cameraButton2.Visibility = ViewStates.Gone;
-                }
-            }
-           
-        }
-
-        private void ScanFile(Android.Net.Uri contentUri){
-           
-        }
-
+      
         
     }
 }
