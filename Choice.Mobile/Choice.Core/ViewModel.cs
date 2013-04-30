@@ -23,5 +23,8 @@ namespace Choice.Core
                 items = value;
             }
         }
+
+
+        
     }
 }

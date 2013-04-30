@@ -16,6 +16,7 @@ using Xamarin.Media;
 using System.Threading.Tasks;
 
 using Choice.Core;
+using Choice.Core.Models;
 
 namespace Choice.Android
 {
@@ -31,21 +32,17 @@ namespace Choice.Android
 
         private Bitmap bitmap;
 
-        public const int SAVECHOICE = 0;
-        public const int CHOICEERROR = 1;
-        public const int SELECTIONTYPE1 = 2;
-        public const int SELECTIONTYPE2 = 3;
+        public const int SAVECHOICE = 0;        
+        public const int SELECTIONTYPE = 1;
+        public int currentImage = 1;
 
         public const int PHOTO_CHOICE_ONE = 1;
         public const int PHOTO_CHOICE_TWO = 2;
-        public const string JPEG_FILE_PREFIX = "CHOICE";
-        public const string JPEG_FILE_SUFFIX = ".jpg";
 
-        public string photoPath1;
-        public string photoPath2;
+        public ChoiceItem NewChoice { get; set; }
 
         public string AlbumDirectory = "Choice";
-
+		List<string> cats = new List<string>{"lolcats", "random", "meme"};
        
 
         protected override void OnCreate(Bundle bundle)
@@ -53,17 +50,26 @@ namespace Choice.Android
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.NewChoiceView);
             
-            _choiceImage1 = this.FindViewById<ImageView>(Resource.Id.imgChoice1);
-           
+            _choiceImage1 = this.FindViewById<ImageView>(Resource.Id.imgChoice1);           
             _choiceImage2 = this.FindViewById<ImageView>(Resource.Id.imgChoice2);
             
             _btnSave = this.FindViewById<Button>(Resource.Id.btnSave);
-            _btnSave.Click += _btnSave_Click;
+            _btnSave.Click += (sender, e) =>
+            {
+                ShowDialog(SAVECHOICE);
+            };
             _cameraButton1 = this.FindViewById<ImageView>(Resource.Id.cameraButton1);
             _cameraButton2 = this.FindViewById<ImageView>(Resource.Id.cameraButton2);
 
-            _cameraButton1.Click += _choiceImage1_Click;
-            _cameraButton2.Click += _choiceImage2_Click;
+            _cameraButton1.Click += (sender, e)=>{
+                currentImage = 1;
+                ShowDialog(SELECTIONTYPE);
+            };
+            _cameraButton2.Click += (sender, e) =>
+            {
+                currentImage = 2;
+                ShowDialog(SELECTIONTYPE);
+            };
 
             Cleanup();
 
@@ -73,54 +79,26 @@ namespace Choice.Android
         protected override Dialog OnCreateDialog(int id)
         {
             var builder = new AlertDialog.Builder(this);
-            List<string> cats = new List<string>{"lolcats", "random", "meme"};
+          
             switch (id)
             {
                 case SAVECHOICE:
                     builder.SetTitle("Select Category for your Choice");
-                    builder.SetItems(cats.ToArray(), ItemSelected);
-                    builder.SetPositiveButton("OK", SaveChoice);
+                    builder.SetItems(cats.ToArray(), ItemSelected);                    
                     builder.SetNegativeButton("Cancel", Cancel);
-                    break;
-                case CHOICEERROR:
-                     builder.SetTitle("There Has Been An Error");                    
-                    builder.SetPositiveButton("OK", Cancel);
-                    builder.SetNegativeButton("Cancel", Cancel);
-                    break;
-                case SELECTIONTYPE1:
+                    break;               
+                case SELECTIONTYPE:
                      builder.SetTitle("Image Source");
                     builder.SetPositiveButton("Take A Photo", TakePhoto);
                     builder.SetNegativeButton("Select From Gallery", SelectFromGallery);
                     break;
-                case SELECTIONTYPE2:
-                    builder.SetTitle("Image Source");
-                    builder.SetPositiveButton("Take A Photo", TakePhoto2);
-                    builder.SetNegativeButton("Select From Gallery", SelectFromGallery2);
-                    break;
+               
             }
             return builder.Show();
         }
 
-        private void SelectFromGallery2(object sender, DialogClickEventArgs e)
-        {
-            var picker = new MediaPicker(this);
-
-            if (!picker.PhotosSupported)
-            {
-                ShowUnsupported();
-                return;
-            }
-
-            picker.PickPhotoAsync().ContinueWith(t =>
-            {
-                if (t.IsCanceled)
-                    return;
-
-                RunOnUiThread(() => ShowImage(PHOTO_CHOICE_TWO, t.Result.Path));
-            });
-        }
         private void SelectFromGallery(object sender, DialogClickEventArgs e)
-        {
+        {   
             var picker = new MediaPicker(this);
 
             if (!picker.PhotosSupported)
@@ -134,36 +112,24 @@ namespace Choice.Android
                 if (t.IsCanceled)
                     return;
 
-                RunOnUiThread(() => ShowImage(PHOTO_CHOICE_ONE, t.Result.Path));
+                RunOnUiThread(() => ShowImage(currentImage, t.Result.Path));
             });
         }
-        private void TakePhoto2(object sender, DialogClickEventArgs e)
-        {
-            photoPath2 = createImageFile();
-            DispatchTakePictureEvent(PHOTO_CHOICE_TWO, photoPath2);
-        }
-        private Toast unsupportedToast;
-        private void ShowUnsupported()
-        {
-            if (this.unsupportedToast != null)
-            {
-                this.unsupportedToast.Cancel();
-                this.unsupportedToast.Dispose();
-            }
-
-            this.unsupportedToast = Toast.MakeText(this, "Your device does not support this feature", ToastLength.Long);
-            this.unsupportedToast.Show();
-        }
+        
+       
+       
         private void TakePhoto(object sender, DialogClickEventArgs e)
         {
-            photoPath1 = createImageFile();
-            DispatchTakePictureEvent(PHOTO_CHOICE_ONE, photoPath1);
+            DispatchTakePictureEvent(currentImage, ChoiceHelper.GenerateImageName());
         }
         private void ShowImage(int image, string path)
         {
+            if (NewChoice == null)
+                NewChoice = new ChoiceItem();
+
             if (image == PHOTO_CHOICE_ONE)
             {
-
+                NewChoice.ImagePath1 = path;
                 DecodeBitmapAsync(path, 400, 400).ContinueWith(t =>
                 {
                     this._choiceImage1.SetImageBitmap(this.bitmap = t.Result);                    
@@ -172,6 +138,7 @@ namespace Choice.Android
             }
             else
             {
+                NewChoice.ImagePath2 = path;
                 DecodeBitmapAsync(path, 400, 400).ContinueWith(t =>
                 {
                     this._choiceImage2.SetImageBitmap(this.bitmap = t.Result);
@@ -218,46 +185,52 @@ namespace Choice.Android
             this.bitmap = null;
         }
 
+        private Toast unsupportedToast;
+        private void ShowUnsupported()
+        {
+            if (this.unsupportedToast != null)
+            {
+                this.unsupportedToast.Cancel();
+                this.unsupportedToast.Dispose();
+            }
+
+            this.unsupportedToast = Toast.MakeText(this, "Your device does not support this feature", ToastLength.Long);
+            this.unsupportedToast.Show();
+        }
+
         private void Cancel(object sender, DialogClickEventArgs e)
         {
             RemoveDialog(e.Which);
         }
 
-        private void SaveChoice(object sender, DialogClickEventArgs e)
+        private void SaveChoice()
         {
-			ChoiceViewModel viewModel = new ChoiceViewModel();
+            if (NewChoice != null)
+            {
+                ChoiceViewModel viewModel = new ChoiceViewModel();
+                viewModel.SaveChoiceAsync(NewChoice, ItemSavedEvent);
+            }
+            else
+            {
+                Toast.MakeText(this, "Please Select 2 images before saving", ToastLength.Long);
+            }
+            
+        }
 
+        private void ItemSavedEvent()
+        {
+            Toast.MakeText(this, "Saved", ToastLength.Long).Show();
         }
 
         private void ItemSelected(object sender, DialogClickEventArgs e)
         {
-            
+			NewChoice.Category = cats[e.Which];
+
+			SaveChoice();
         }
 
 
-        void _btnSave_Click(object sender, EventArgs e)
-        {
-            ShowDialog(SAVECHOICE);
-        }
-
-        void _choiceImage2_Click(object sender, EventArgs e)
-        {
-            ShowDialog(SELECTIONTYPE2);
-        }
-
-        void _choiceImage1_Click(object sender, EventArgs e)
-        {
-            ShowDialog(SELECTIONTYPE1);
-        }
-
-       
-        private string createImageFile() {
-            // Create an image file name
-            String timeStamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
-            String imageFileName = JPEG_FILE_PREFIX + timeStamp + JPEG_FILE_SUFFIX;
-
-            return imageFileName;
-        }
+      
 
         private void DispatchTakePictureEvent(int code, string name)
         {

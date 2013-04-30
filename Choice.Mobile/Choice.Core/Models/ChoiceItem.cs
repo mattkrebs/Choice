@@ -14,7 +14,7 @@ namespace Choice.Core.Models
 {
     public class ChoiceItem
     {
-        public Guid Id { get; set; }
+        public String Id { get; set; }     
         public String Category { get; set; }
         public String ImagePath1 { get; set; }
         public String ImagePath2 { get; set; }

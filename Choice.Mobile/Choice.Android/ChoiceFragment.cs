@@ -12,6 +12,7 @@ using Android.Views;
 using Android.Widget;
 using Choice.Core;
 using Android.Graphics.Drawables;
+using Android.Graphics;
 
 namespace Choice.Android
 {
@@ -23,7 +24,8 @@ namespace Choice.Android
         TextView txtScore2;
         bool image1loaded = false;
         bool image2loaded = false;
-       
+
+
         public ChoiceViewModel CurrentPoll { get; set; }
         public bool Selected = false;
 
@@ -40,7 +42,7 @@ namespace Choice.Android
             txtScore1.Visibility = ViewStates.Gone;
             txtScore2.Visibility = ViewStates.Gone;
           //  image2.Touch += image2_Touch;
-
+			
             return v;
         }
 

@@ -7,12 +7,23 @@ using Choice.Core.Models;
 using System.Threading.Tasks;
 using System.Net;
 using System.Threading;
+using System.IO;
 
 namespace Choice.Core
 {
     public class ChoiceViewModel : ViewModel<ChoiceItem>
     {
         MobileServiceClient db = new MobileServiceClient("https://choice.azure-mobile.net/", "VQiwdHPOJmRlpXFtwzUCOvOHboUspI17");
+        
+        public ChoiceItem Choice { get; set; }
+
+        public List<ChoiceItem> Choices { get; set; }
+
+
+        public Stream ImageStream1 { get; set; }
+        public Stream ImageStream2 { get; set; }
+
+
 
         string[] urls = new string[] { "http://www.lolcats.com/images/u/12/24/lolcatsdotcompromdate.jpg",
             "http://www.lolcats.com/images/u/11/23/lolcatsdotcomuu378xml5m6xkh1c.jpg", 
@@ -51,9 +62,6 @@ namespace Choice.Core
             
         }
 
-
-
-
         public void GetChoicesAsync(Action<List<ChoiceItem>> success)
         {
            // List<ChoiceItem> items = new List<ChoiceItem>();
@@ -68,23 +76,45 @@ namespace Choice.Core
                 {                   
                         success(t.Result); 
                 }
-            }, TaskScheduler.FromCurrentSynchronizationContext());
-
-            
+            }, TaskScheduler.FromCurrentSynchronizationContext());            
         }
 
-        public void AddChoiceAsync(ChoiceItem item)
+        public void SaveChoiceAsync(ChoiceItem item, Action success)
         {
             try
             {
-                db.GetTable<ChoiceItem>().InsertAsync(item);
+                if (string.IsNullOrEmpty(item.Id))
+                    db.GetTable<ChoiceItem>().InsertAsync(item).ContinueWith(t => {
+                        if (!t.IsFaulted)
+                        {
+                            if (ShowAlert != null)
+                                ShowAlert("Some Error Saving", "Saving Choice Failed");
+
+                        }
+                        else
+                        {
+                            success();
+                        }
+                    },TaskScheduler.FromCurrentSynchronizationContext());
+                else
+                    db.GetTable<ChoiceItem>().UpdateAsync(item).ContinueWith(t =>
+                    {
+                        if (!t.IsFaulted)
+                        {
+                            if (ShowAlert != null)
+                                ShowAlert("Some Error Saving", "Saving Choice Failed");
+
+                        }
+                        else
+                        {
+                            success();
+                        }
+                    }, TaskScheduler.FromCurrentSynchronizationContext());
             }
             catch (Exception ex)
             {
                 ShowAlert("Error Saving Choice", ex.Message);
             }
-
         }
-
     }
 }
