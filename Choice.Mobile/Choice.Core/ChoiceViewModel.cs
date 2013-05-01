@@ -17,11 +17,11 @@ namespace Choice.Core
 
         public IMobileServiceTable<ChoiceItem> ChoiceTable = db.GetTable<ChoiceItem>();
 
-        public List<ChoiceItem> Choices { get; set; }
 
 
         public Stream ImageStream1 { get; set; }
         public Stream ImageStream2 { get; set; }
+		public List<ChoiceItem> Choices { get; set; }
 
 
 
