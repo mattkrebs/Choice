@@ -16,11 +16,10 @@ namespace Choice.Core
         public static MobileServiceClient db = new MobileServiceClient("https://choice.azure-mobile.net/", "VQiwdHPOJmRlpXFtwzUCOvOHboUspI17");
 
         public IMobileServiceTable<ChoiceItem> ChoiceTable = db.GetTable<ChoiceItem>();
+        public IMobileServiceTable<ChoiceImage> ChoiceImageTable = db.GetTable<ChoiceImage>();
 
-
-
-        public Stream ImageStream1 { get; set; }
-        public Stream ImageStream2 { get; set; }
+        public ChoiceItem Choice { get; set; }
+        public List<ChoiceImage> ChoiceImages { get; set; }
 		public List<ChoiceItem> Choices { get; set; }
 
 
@@ -79,15 +78,28 @@ namespace Choice.Core
 //            }, TaskScheduler.FromCurrentSynchronizationContext());            
 //        }
 
-		public async void SaveChoiceAsync(ChoiceItem item, Action success){
-
-					await ChoiceTable.InsertAsync(item);
-                    
-			var newitem = item;
-		
-		
+		public async void SaveChoiceAsync(){
+            if (this.Choice != null)
+            {
+                var id = await InsertChoiceAsync();
+                foreach (var item in this.Choice.Images)
+	            {
+		            item.ChoiceId  = id;
+                    await ChoiceImageTable.InsertAsync(item);
+	            }
+                
+                await UploadChoiceImage(this.Choice.Images);
+            }           
+			
 		}
 
+
+        private async Task<int> InsertChoiceAsync()
+        {
+            
+            await ChoiceTable.InsertAsync(this.Choice);
+            return this.Choice.Id;
+        }
 
 //        public void SaveChoiceAsync(ChoiceItem item, Action success)
 //        {
@@ -133,38 +145,34 @@ namespace Choice.Core
 
 
 
-        private void UploadChoiceImage(string url, Stream fileStream)
+        private Task UploadChoiceImage(List<ChoiceImage> images)
         {
+			return Task.Factory.StartNew(() => {
+			
+	            try
+	            {
+                    foreach (var item in images)
+                    {
+                        var request = (HttpWebRequest)WebRequest.Create(new Uri(item.SAS));
+                        // var fileStream = System.Convert.FromBase64String(itemImage.ImageBase64);
+                        request.Method = "PUT";
+                        //request.Headers.Add("Content-Type", "image/jpeg");
+                        request.Headers.Add("x-ms-blob-type", "BlockBlob");
+                        Stream dataStream = request.GetRequestStream();
+                        dataStream.Write(item.ImageStream, 0, item.ImageStream.Length);
+                        dataStream.Close();
+                        // client.UploadDataAsync(new Uri(tItem.SAS), "PUT", fileStream);
+                        WebResponse response = request.GetResponse();
 
-            try
-            {
-                byte[] imgData;
-                using (var ms = new MemoryStream())
-                {
-                    fileStream.CopyTo(ms);
-                    imgData = ms.ToArray();
-                }
-
-
-
-                var request = (HttpWebRequest)WebRequest.Create(new Uri(url));
-               // var fileStream = System.Convert.FromBase64String(itemImage.ImageBase64);
-                request.Method = "PUT";
-                //request.Headers.Add("Content-Type", "image/jpeg");
-                request.Headers.Add("x-ms-blob-type", "BlockBlob");
-                Stream dataStream = request.GetRequestStream();
-                dataStream.Write(imgData, 0, imgData.Length);
-                dataStream.Close();
-
-                // client.UploadDataAsync(new Uri(tItem.SAS), "PUT", fileStream);
-                WebResponse response = request.GetResponse();
-
-                Console.WriteLine(((HttpWebResponse)response).StatusDescription);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.InnerException);
-            }
+                        Console.WriteLine(((HttpWebResponse)response).StatusDescription);
+                    }
+	              
+	            }
+	            catch (Exception ex)
+	            {
+	                Console.WriteLine(ex.InnerException);
+	            }
+			});
         }
     }
 }

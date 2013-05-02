@@ -1,23 +1,21 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Choice.Core\ChoiceViewModel.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Choice.Android\NewChoiceActivity.cs">
     <Files>
-      <File FileName="Choice.Android\NewChoiceActivity.cs" Line="230" Column="1" />
-      <File FileName="Choice.Core\ChoiceViewModel.cs" Line="84" Column="6" />
-      <File FileName="Choice.Android\ChoiceFragment.cs" Line="45" Column="4" />
-      <File FileName="Choice.Android\MainActivity.cs" Line="24" Column="11" />
-      <File FileName="Choice.Core\Models\ChoiceItem.cs" Line="13" Column="1" />
+      <File FileName="Choice.Android\NewChoiceActivity.cs" Line="254" Column="61" />
+      <File FileName="Choice.Core\ChoiceViewModel.cs" Line="150" Column="28" />
+      <File FileName="Choice.Android\ChoiceFragment.cs" Line="1" Column="1" />
+      <File FileName="Choice.Android\MainActivity.cs" Line="1" Column="1" />
+      <File FileName="Choice.Core\Models\ChoiceItem.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="E:\Personal\Choice\Choice.Mobile\Choice.Android\NewChoiceActivity.cs" line="229" column="1" />
-      <Breakpoint file="E:\Personal\Choice\Choice.Mobile\Choice.Core\ChoiceViewModel.cs" line="134" column="1" />
-      <Breakpoint file="E:\Personal\Choice\Choice.Mobile\Choice.Core\ChoiceViewModel.cs" line="141" column="1" />
       <Breakpoint file="E:\Personal\Choice\Choice.Mobile\Choice.Core\ChoiceViewModel.cs" line="89" column="1" />
-      <Breakpoint file="E:\Personal\Choice\Choice.Mobile\Choice.Core\ChoiceViewModel.cs" line="84" column="1" />
+      <Breakpoint file="E:\Personal\Choice\Choice.Mobile\Choice.Android\NewChoiceActivity.cs" line="237" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.Choice.Android AndroidDeviceId-Debug="0149B2851600A010" />
+  <MonoDevelop.Ide.ItemProperties.Choice.Android AndroidDeviceId-Debug="emulator-5554" />
 </Properties>

@@ -10,20 +10,31 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Microsoft.WindowsAzure.MobileServices;
+using System.Runtime.Serialization;
 
 namespace Choice.Core.Models
 {
     public class ChoiceItem 
     {
-        public String Id { get; set; }     
-        public String Category { get; set; }
-        public String ImagePath1 { get; set; }
-        public String ImagePath2 { get; set; }
-        public String UserId { get; set; }
-        public String SAS1 { get; set; }
-        public String SAS2 { get; set; }
-
-
+        
+        public int Id { get; set; }        
+        public String Category { get; set; }        
+       // public String UserId { get; set; }
+        
+        [IgnoreDataMember]
+        public List<ChoiceImage> Images { get; set; }
         
     }
+
+	public class ChoiceImage{
+        public int Id { get; set; }
+        public int ChoiceId { get; set; }
+        public String ImageUrl { get; set; }
+        public String SAS { get; set; }
+        
+        [IgnoreDataMember]
+        public byte[] ImageStream { get; set; }
+
+	
+	}
 }

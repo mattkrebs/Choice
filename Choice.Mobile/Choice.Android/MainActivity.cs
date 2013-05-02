@@ -12,8 +12,7 @@ namespace Choice.Android
     [Activity(Label = "Choice", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : BaseActivity
     {
-        int count = 1;
-
+       
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
