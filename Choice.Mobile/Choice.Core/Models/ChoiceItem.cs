@@ -19,7 +19,8 @@ namespace Choice.Core.Models
         
         public int Id { get; set; }        
         public String Category { get; set; }        
-       // public String UserId { get; set; }
+       
+        
         
         [IgnoreDataMember]
         public List<ChoiceImage> Images { get; set; }

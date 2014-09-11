@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="ChoiceHelper.cs" />
     <Compile Include="ChoiceViewModel.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="ImageDownloader.cs" />
     <Compile Include="Models\ChoiceItem.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -69,18 +70,18 @@
     <AndroidResource Include="Resources\Values\Strings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <XamarinComponent Include="azure-mobile-services">
+    <XamarinComponentReference Include="azure-mobile-services">
       <Visible>False</Visible>
       <Version>1.0.2</Version>
-    </XamarinComponent>
-    <XamarinComponent Include="facebook-sdk">
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="facebook-sdk">
       <Visible>False</Visible>
       <Version>6.2.1</Version>
-    </XamarinComponent>
-    <XamarinComponent Include="json.net">
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="json.net">
       <Visible>False</Visible>
       <Version>4.5.11</Version>
-    </XamarinComponent>
+    </XamarinComponentReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="InsertScript.txt" />

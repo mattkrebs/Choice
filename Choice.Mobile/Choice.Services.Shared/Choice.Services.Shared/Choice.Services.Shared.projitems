@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>8fe8dece-f8de-468f-b175-be40216efd37</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Choice.Services.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ChoiceItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Option.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\ChoiceService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ChoiceItemViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ChoiceListViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ManageInfoViewModel.cs" />
+  </ItemGroup>
+</Project>

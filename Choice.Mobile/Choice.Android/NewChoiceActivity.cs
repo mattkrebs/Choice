@@ -14,10 +14,8 @@ using Android.Graphics;
 using Android.Net;
 using Xamarin.Media;
 using System.Threading.Tasks;
-
-using Choice.Core;
-using Choice.Core.Models;
 using System.IO;
+using Choice.Services.Shared.ViewModels;
 
 namespace Choice.Android
 {
@@ -30,7 +28,7 @@ namespace Choice.Android
         private ImageView _cameraButton1;
         private ImageView _cameraButton2;
         private Button _btnSave;
-		ChoiceViewModel viewModel = new ChoiceViewModel();
+        ChoiceItemViewModel viewModel = new ChoiceItemViewModel();
         private Bitmap bitmap;
 
         public const int SAVECHOICE = 0;        
@@ -49,7 +47,7 @@ namespace Choice.Android
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.NewChoiceView);
-			viewModel.Choice = new ChoiceItem();
+			
             _choiceImage1 = this.FindViewById<ImageView>(Resource.Id.imgChoice1);           
             _choiceImage2 = this.FindViewById<ImageView>(Resource.Id.imgChoice2);
             
@@ -120,43 +118,43 @@ namespace Choice.Android
        
         private void TakePhoto(object sender, DialogClickEventArgs e)
         {
-            DispatchTakePictureEvent(currentImage, ChoiceHelper.GenerateImageName());
+           // DispatchTakePictureEvent(currentImage, ChoiceHelper.GenerateImageName());
         }
         private void ShowImage(int image, string path)
         {
-            if (viewModel.Choice.Images == null)
-                viewModel.Choice.Images = new List<ChoiceImage>();
+            //if (viewModel.Choice.Images == null)
+            //    viewModel.Choice.Images = new List<ChoiceImage>();
 
-            if (image == PHOTO_CHOICE_ONE)
-            {
-                ChoiceImage ci = new ChoiceImage(){ ImageUrl=  path};
-                DecodeBitmapAsync(path, 400, 400).ContinueWith(t =>
-                {
-                    this._choiceImage1.SetImageBitmap(this.bitmap = t.Result);                    
-                    _cameraButton1.Visibility = ViewStates.Gone;
-					using (var stream = new MemoryStream()){
-						bitmap.Compress(Bitmap.CompressFormat.Jpeg, 100,stream);
-						ci.ImageStream = stream.ToArray();
-					}
+            //if (image == PHOTO_CHOICE_ONE)
+            //{
+            //    ChoiceImage ci = new ChoiceImage(){ ImageUrl=  path};
+            //    DecodeBitmapAsync(path, 400, 400).ContinueWith(t =>
+            //    {
+            //        this._choiceImage1.SetImageBitmap(this.bitmap = t.Result);                    
+            //        _cameraButton1.Visibility = ViewStates.Gone;
+            //        using (var stream = new MemoryStream()){
+            //            bitmap.Compress(Bitmap.CompressFormat.Jpeg, 100,stream);
+            //            ci.ImageStream = stream.ToArray();
+            //        }
 
-                }, TaskScheduler.FromCurrentSynchronizationContext());
-                viewModel.Choice.Images.Add(ci);
-            }
-            else
-            {
-                ChoiceImage ci = new ChoiceImage() { ImageUrl = path };
-                DecodeBitmapAsync(path, 400, 400).ContinueWith(t =>
-                {
-                    this._choiceImage2.SetImageBitmap(this.bitmap = t.Result);
-					using (var stream = new MemoryStream()){
-						bitmap.Compress(Bitmap.CompressFormat.Jpeg, 100,stream);
-                        ci.ImageStream = stream.ToArray();
-					}
-                    _cameraButton1.Visibility = ViewStates.Gone;
+            //    }, TaskScheduler.FromCurrentSynchronizationContext());
+            //    viewModel.Choice.Images.Add(ci);
+            //}
+            //else
+            //{
+            //    ChoiceImage ci = new ChoiceImage() { ImageUrl = path };
+            //    DecodeBitmapAsync(path, 400, 400).ContinueWith(t =>
+            //    {
+            //        this._choiceImage2.SetImageBitmap(this.bitmap = t.Result);
+            //        using (var stream = new MemoryStream()){
+            //            bitmap.Compress(Bitmap.CompressFormat.Jpeg, 100,stream);
+            //            ci.ImageStream = stream.ToArray();
+            //        }
+            //        _cameraButton1.Visibility = ViewStates.Gone;
 
-                }, TaskScheduler.FromCurrentSynchronizationContext());
-                viewModel.Choice.Images.Add(ci);
-            }
+            //    }, TaskScheduler.FromCurrentSynchronizationContext());
+            //    viewModel.Choice.Images.Add(ci);
+            //}
 
             
         }
@@ -218,15 +216,15 @@ namespace Choice.Android
 
         private void SaveChoice()
         {
-            if (viewModel.Choice.Images.Count == 2)
-            {
+            //if (viewModel.Choice.Images.Count == 2)
+            //{
                 
-                viewModel.SaveChoiceAsync();
-            }
-            else
-            {
-                Toast.MakeText(this, "Please Select 2 images before saving", ToastLength.Long);
-            }
+            //    viewModel.SaveChoiceAsync();
+            //}
+            //else
+            //{
+            //    Toast.MakeText(this, "Please Select 2 images before saving", ToastLength.Long);
+            //}
             
         }
 
@@ -237,7 +235,7 @@ namespace Choice.Android
 
         private void ItemSelected(object sender, DialogClickEventArgs e)
         {
-			viewModel.Choice.Category = cats[e.Which];
+			//viewModel.Choice.Category = cats[e.Which];
 
 			SaveChoice();
         }

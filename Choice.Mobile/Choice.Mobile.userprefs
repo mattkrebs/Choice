@@ -1,9 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Choice.Android\NewChoiceActivity.cs">
     <Files>
-      <File FileName="Choice.Android\NewChoiceActivity.cs" Line="254" Column="61" />
-      <File FileName="Choice.Core\ChoiceViewModel.cs" Line="150" Column="28" />
+      <File FileName="Choice.Android\NewChoiceActivity.cs" Line="254" Column="24" />
+      <File FileName="Choice.Core\ChoiceViewModel.cs" Line="1" Column="1" />
       <File FileName="Choice.Android\ChoiceFragment.cs" Line="1" Column="1" />
       <File FileName="Choice.Android\MainActivity.cs" Line="1" Column="1" />
       <File FileName="Choice.Core\Models\ChoiceItem.cs" Line="1" Column="1" />
@@ -17,5 +17,4 @@
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.Choice.Android AndroidDeviceId-Debug="emulator-5554" />
 </Properties>
