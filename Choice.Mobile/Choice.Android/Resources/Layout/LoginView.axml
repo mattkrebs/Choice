@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/linearlayout_bg"
+        android:padding="10dp">
+        <Button
+            android:id="@+id/btnGplus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="30dp"
+            android:layout_margin="4dp"
+            android:background="@drawable/layers_gplus_button_bg"
+            android:text="Sign in with Google+"
+            style="@style/ButtonText"
+            android:visibility="gone" />
+        <Button
+            android:id="@+id/btnFb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="30dp"
+            android:layout_margin="4dp"
+            android:background="@drawable/layers_fb_button_bg"
+            android:text="Sign in with Facebook"
+            style="@style/ButtonText"
+            android:visibility="gone" />
+        <Button
+            android:id="@+id/btnTwitter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="30dp"
+            android:layout_margin="4dp"
+            android:background="@drawable/layers_twitter_button_bg"
+            android:text="Sign in with Twitter"
+            style="@style/ButtonText"
+            android:visibility="gone" />
+    </LinearLayout>
+</RelativeLayout>

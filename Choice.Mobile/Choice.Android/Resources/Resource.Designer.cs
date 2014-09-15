@@ -47,10 +47,40 @@ namespace Choice.Android
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int ic_camera = 2130837504;
+			public const int button_fb_bg = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int Icon = 2130837505;
+			public const int button_gplus_bg = 2130837505;
+			
+			// aapt resource value: 0x7f020002
+			public const int button_twitter_bg = 2130837506;
+			
+			// aapt resource value: 0x7f020003
+			public const int ic_camera = 2130837507;
+			
+			// aapt resource value: 0x7f020004
+			public const int Icon = 2130837508;
+			
+			// aapt resource value: 0x7f020005
+			public const int icon_fb = 2130837509;
+			
+			// aapt resource value: 0x7f020006
+			public const int icon_gplus = 2130837510;
+			
+			// aapt resource value: 0x7f020007
+			public const int icon_twitter = 2130837511;
+			
+			// aapt resource value: 0x7f020008
+			public const int layers_fb_button_bg = 2130837512;
+			
+			// aapt resource value: 0x7f020009
+			public const int layers_gplus_button_bg = 2130837513;
+			
+			// aapt resource value: 0x7f02000a
+			public const int layers_twitter_button_bg = 2130837514;
+			
+			// aapt resource value: 0x7f02000b
+			public const int linearlayout_bg = 2130837515;
 			
 			static Drawable()
 			{
@@ -65,14 +95,23 @@ namespace Choice.Android
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f070009
+			public const int btnFb = 2131165193;
+			
+			// aapt resource value: 0x7f070008
+			public const int btnGplus = 2131165192;
+			
+			// aapt resource value: 0x7f070011
+			public const int btnSave = 2131165201;
+			
+			// aapt resource value: 0x7f07000a
+			public const int btnTwitter = 2131165194;
+			
 			// aapt resource value: 0x7f07000e
-			public const int btnSave = 2131165198;
+			public const int cameraButton1 = 2131165198;
 			
-			// aapt resource value: 0x7f07000b
-			public const int cameraButton1 = 2131165195;
-			
-			// aapt resource value: 0x7f07000d
-			public const int cameraButton2 = 2131165197;
+			// aapt resource value: 0x7f070010
+			public const int cameraButton2 = 2131165200;
 			
 			// aapt resource value: 0x7f070001
 			public const int frameLayout1 = 2131165185;
@@ -83,8 +122,8 @@ namespace Choice.Android
 			// aapt resource value: 0x7f070005
 			public const int frameLayout3 = 2131165189;
 			
-			// aapt resource value: 0x7f070008
-			public const int imagePager = 2131165192;
+			// aapt resource value: 0x7f07000b
+			public const int imagePager = 2131165195;
 			
 			// aapt resource value: 0x7f070003
 			public const int imgChoice1 = 2131165187;
@@ -92,20 +131,23 @@ namespace Choice.Android
 			// aapt resource value: 0x7f070006
 			public const int imgChoice2 = 2131165190;
 			
-			// aapt resource value: 0x7f070009
-			public const int linearLayout1 = 2131165193;
+			// aapt resource value: 0x7f07000c
+			public const int linearLayout1 = 2131165196;
+			
+			// aapt resource value: 0x7f070013
+			public const int menu_create = 2131165203;
+			
+			// aapt resource value: 0x7f070014
+			public const int menu_list = 2131165204;
+			
+			// aapt resource value: 0x7f07000d
+			public const int relativeLayout1 = 2131165197;
 			
 			// aapt resource value: 0x7f07000f
-			public const int menu_create = 2131165199;
+			public const int relativeLayout2 = 2131165199;
 			
-			// aapt resource value: 0x7f070010
-			public const int menu_list = 2131165200;
-			
-			// aapt resource value: 0x7f07000a
-			public const int relativeLayout1 = 2131165194;
-			
-			// aapt resource value: 0x7f07000c
-			public const int relativeLayout2 = 2131165196;
+			// aapt resource value: 0x7f070012
+			public const int t_bg = 2131165202;
 			
 			// aapt resource value: 0x7f070004
 			public const int txtScore1 = 2131165188;
@@ -136,10 +178,13 @@ namespace Choice.Android
 			public const int ChoiceFragment = 2130903041;
 			
 			// aapt resource value: 0x7f030002
-			public const int Main = 2130903042;
+			public const int LoginView = 2130903042;
 			
 			// aapt resource value: 0x7f030003
-			public const int NewChoiceView = 2130903043;
+			public const int Main = 2130903043;
+			
+			// aapt resource value: 0x7f030004
+			public const int NewChoiceView = 2130903044;
 			
 			static Layout()
 			{
@@ -195,8 +240,17 @@ namespace Choice.Android
 		public partial class Style
 		{
 			
+			// aapt resource value: 0x7f050002
+			public const int AppBaseTheme = 2131034114;
+			
+			// aapt resource value: 0x7f050003
+			public const int AppTheme = 2131034115;
+			
 			// aapt resource value: 0x7f050000
-			public const int PollScore = 2131034112;
+			public const int ButtonText = 2131034112;
+			
+			// aapt resource value: 0x7f050001
+			public const int PollScore = 2131034113;
 			
 			static Style()
 			{

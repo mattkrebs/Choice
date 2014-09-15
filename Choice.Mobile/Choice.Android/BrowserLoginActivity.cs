@@ -20,16 +20,16 @@ namespace Choice.Android
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-
+            var url = Intent.GetStringExtra("AuthUrl") ?? "";
             // Create your application here
             SetContentView(Resource.Layout.BrowserLoginView);
 
             var webView = (WebView)this.FindViewById<WebView>(Resource.Id.webView);           
            // var webView = new WebView(this);
-
-            webView.SetWebViewClient(new LoginWebViewClient());
-            webView.LoadUrl("http://choice.azurewebsites.net"+ ChoiceServices.Instance.ExternalLogins[0].Url);
-
+            if (!String.IsNullOrEmpty(url)) { 
+                webView.SetWebViewClient(new LoginWebViewClient());
+                webView.LoadUrl(ChoiceServices.Instance.BaseUri + url);
+            }
         }
     }
 
@@ -46,15 +46,22 @@ namespace Choice.Android
 
         public bool IsLocalUser(string url)
         {
-            var cookies = CookieManager.Instance.GetCookie(url);
-
+            var cookies = CookieManager.Instance.GetCookie(ChoiceServices.Instance.BaseUri);
+            ChoiceServices.Instance.CookieContainer = new System.Net.CookieContainer();
+          
+            foreach (var cookie in cookies.Split(' '))
+            {
+                string[] keyvalue = cookie.Split('=');
+                ChoiceServices.Instance.CookieContainer.Add(new Uri(url),new System.Net.Cookie(keyvalue[0],keyvalue[1]));                
+            }
             Console.WriteLine("All Cookies " + cookies);
-
-            return cookies.Contains(".AspNet.Cookies");            
+             return cookies.Contains(".AspNet.Cookies");            
         }
 
         private async void ParseUrlForAccessToken(string url)
         {
+
+           
             const string fieldName = "access_token=";
             int accessTokenIndex = url.IndexOf(fieldName, StringComparison.Ordinal);
             if (accessTokenIndex > -1)

@@ -24,10 +24,35 @@ namespace Choice.Android
             base.OnCreate(bundle);
             List<ExternalLoginViewModel> external = await ChoiceServices.Instance.GetExternalLoginProviders();
 
-            ChoiceServices.Instance.ExternalLogins = external;
+            SetContentView(Resource.Layout.LoginView);
+            Button btnGplus = (Button)FindViewById<Button>(Resource.Id.btnGplus);
+            Button btnFb = (Button)FindViewById<Button>(Resource.Id.btnFb);
+          
+                Button btnTwitter = (Button)FindViewById<Button>(Resource.Id.btnTwitter);
+
+            foreach (var item in external)
+            {
+                switch (item.Name)
+                {
+                    case "Facebook":
+                        btnFb.Visibility = ViewStates.Visible;
+                        btnFb.Touch += (s, e) =>
+                        {
+                            if (e.Event.Action == MotionEventActions.Up)
+                            {
+                                var bactivity = new Intent(this, typeof(BrowserLoginActivity));
+                                bactivity.PutExtra("AuthUrl", item.Url);
+                                StartActivity(bactivity);
+                            }
+
+                        };
+                        break;
+                    default:
+                        break;
+                }
+            }
 
 
-            StartActivityForResult(typeof(BrowserLoginActivity), 1);
 
 
 
